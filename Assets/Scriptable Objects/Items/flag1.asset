@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefub: {fileID: 3189661711938086362, guid: 3ab97a54249394d7aa6f79ea91a24c75, type: 3}
   type: 1
+  timeToFinishWork: 5
   description: 

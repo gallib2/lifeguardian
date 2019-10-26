@@ -12,6 +12,7 @@ public abstract class ItemObject : ScriptableObject
 {
     public GameObject prefub;
     public ItemType type;
+    public int timeToFinishWork;
 
     [TextArea(15, 20)]
     public string description;

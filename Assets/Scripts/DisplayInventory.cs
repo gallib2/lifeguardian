@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisplayInventory : MonoBehaviour
 {
     public InventoryObject inventory;
+    public Slider sliderTimer;
 
     public int X_START;
     public int Y_START;
@@ -19,12 +21,34 @@ public class DisplayInventory : MonoBehaviour
         CreateDisplay();
     }
 
+    private void Update()
+    {
+        for (int i = 0; i < inventory.container.Count; i++)
+        {
+            InventorySlot inventorySlot = inventory.container[i];
+            if(inventorySlot.timeToFinishWork > 0)
+            {
+                var obj = itemDisplay[inventorySlot];
+                inventorySlot.timeToFinishWork = inventorySlot.item.timeToFinishWork - (int)inventorySlot.timerHelper.Get();
+                obj.GetComponentInChildren<Slider>().value = inventorySlot.timeToFinishWork;
+            }
+            else
+            {
+                DestroyImmediate(itemDisplay[inventorySlot]);
+                itemDisplay.Remove(inventorySlot);
+                inventory.container.Remove(inventorySlot);
+            }
+        }
+    }
+
+
     private void CreateDisplay()
     {
         for (int i = 0; i < inventory.container.Count; i++)
         {
             var obj = Instantiate(inventory.container[i].item.prefub, Vector3.zero, Quaternion.identity, transform);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            obj.GetComponentInChildren<Slider>().maxValue = inventory.container[i].timeToFinishWork;
             itemDisplay.Add(inventory.container[i], obj);
         }
     }
@@ -40,6 +64,7 @@ public class DisplayInventory : MonoBehaviour
         //CreateDisplay();
         var obj = Instantiate(inventory.container[lastIndex].item.prefub, Vector3.zero, Quaternion.identity, transform);
         obj.GetComponent<RectTransform>().localPosition = GetPosition(lastIndex);
+        obj.GetComponentInChildren<Slider>().maxValue = inventory.container[lastIndex].timeToFinishWork;
         itemDisplay.Add(inventory.container[lastIndex], obj);
     }
 

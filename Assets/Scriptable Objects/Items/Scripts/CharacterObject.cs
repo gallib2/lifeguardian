@@ -9,5 +9,6 @@ public class CharacterObject : ItemObject
     private void Awake()
     {
         type = ItemType.Character;
+        timeToFinishWork = 5;
     }
 }
