@@ -15,5 +15,9 @@ MonoBehaviour:
   prefub: {fileID: 1723907153599576426, guid: 4507daf7519ff4c94b2a0fa66aabc399, type: 3}
   type: 0
   timeToFinishWork: 3
+  allowedZone: {fileID: 8727273084158649556, guid: 7d5bb47b4f69b479395fad6f1f92e6c5,
+    type: 3}
   description: 
   lifeTimeValue: 5
+  dangerZone: {fileID: 3771300597580285707, guid: f29e1c1fc35684ad6868fedfb388bd2d,
+    type: 3}

@@ -13,6 +13,7 @@ public abstract class ItemObject : ScriptableObject
     public GameObject prefub;
     public ItemType type;
     public int timeToFinishWork;
+    public GameObject allowedZone;
 
     [TextArea(15, 20)]
     public string description;

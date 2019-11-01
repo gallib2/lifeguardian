@@ -15,4 +15,6 @@ public class Item : MonoBehaviour
     {
         OnItemClicked?.Invoke(item);
     }
+
+    // todo detect if pass allowed zone OR in random time move forward to danger position
 }
