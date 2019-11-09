@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public Camera mainCamera;
+    public Slider lifeSlider;
+    public Slider funSlider;
+    public int scoreToDownloadPerTime;
     public int speed = 3;
+    public int maxLifeValue = 100;
 
     private Vector3 seaTarget;
     private Vector3 beachTarget;
@@ -13,22 +18,32 @@ public class GameManager : MonoBehaviour
     private bool moveToSea;
     private bool moveToBeach;
 
+    private void OnEnable()
+    {
+        SwipeDetector.OnSwipe += SwipeDetected;
+        HealthBar.OnLifeOver += DownloadScore;
+    }
+
+    private void OnDisable()
+    {
+        SwipeDetector.OnSwipe -= SwipeDetected;
+        HealthBar.OnLifeOver -= DownloadScore;
+    }
+
     private void Start()
     {
         moveToSea = true;
         beachTarget = new Vector3(5.65f, mainCamera.transform.position.y, mainCamera.transform.position.z);
         seaTarget = new Vector3(0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        scoreToDownloadPerTime = 10;
+        lifeSlider.maxValue = maxLifeValue;
     }
 
     private void Update()
     {
         if(shouldMoveCamera)
         {
-            Debug.Log("inside if ");
-            Debug.Log("moveToSea " + moveToSea);
-            Debug.Log("moveTobech " + moveToBeach);
             float step = speed * Time.deltaTime;
-            //shouldMoveCamera = false; // todo change this after arrive to position;!!!
 
             if (moveToSea)
             {
@@ -47,7 +62,6 @@ public class GameManager : MonoBehaviour
 
     private void SwipeDetected(SwipeData swipeData)
     {
-        Debug.Log("shouldMoveCamera: " + shouldMoveCamera);
         // check if camera on the beach && the player swipe right -> move camera to the sea
         if(swipeData.Direction == SwipeDirection.Right && moveToBeach)
         {
@@ -64,13 +78,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void DownloadScore()
     {
-        SwipeDetector.OnSwipe += SwipeDetected;
+        lifeSlider.value -= scoreToDownloadPerTime;
     }
 
-    private void OnDisable()
-    {
-        SwipeDetector.OnSwipe -= SwipeDetected;
-    }
+
 }

@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public static event Action OnMoveToDanger;
     public float speed;
     public float distance;
 
@@ -20,11 +22,13 @@ public class CharacterMovement : MonoBehaviour
     private void OnEnable()
     {
         Item.OnItemClicked += MoveToSafty;
+        HealthBar.OnLifeOver += OnCharcterDead;
     }
 
     private void OnDisable()
     {
         Item.OnItemClicked -= MoveToSafty;
+        HealthBar.OnLifeOver -= OnCharcterDead;
     }
 
 
@@ -39,7 +43,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        moveToDanger = continueCheckTime && (int)timer.Get() > 0 && ((int)timer.Get() % 10) == 0;
+        moveToDanger = continueCheckTime && (int)timer.Get() > 0 && ((int)timer.Get() % 5) == 0;
 
         if(!continueCheckTime || moveToDanger)
         {
@@ -55,11 +59,17 @@ public class CharacterMovement : MonoBehaviour
 
     void MoveToSafty(ItemObject item)
     {
-        //moveToDanger = false;
-        // todo move item to regular position after X seconds.
-        // can do it with variable and move to init position on update function.
+        // TODO - if he already in safty... what to do?
         continueCheckTime = true;
         transform.position = initPosition;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "flagsZone_right")
+        {
+            OnMoveToDanger.Invoke();
+        }
     }
 
     private void Patrol()
@@ -82,6 +92,11 @@ public class CharacterMovement : MonoBehaviour
                 movingRight = true;
             }
         }
+    }
+
+    private void OnCharcterDead()
+    {
+        Destroy(gameObject);
     }
 
 }
