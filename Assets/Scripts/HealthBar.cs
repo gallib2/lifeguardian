@@ -16,19 +16,6 @@ public class HealthBar : MonoBehaviour
     private bool toStopDwonloadHelth;
     private TimerHelper timer;
 
-    private void OnEnable()
-    {
-        CharacterMovement.OnMoveToDanger += OnStartDownloadHealth;
-        Item.OnItemClicked += OnStopDownloadHealth;
-    }
-
-    private void OnDisable()
-    {
-        CharacterMovement.OnMoveToDanger -= OnStartDownloadHealth;
-        Item.OnItemClicked -= OnStopDownloadHealth;
-    }
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +33,8 @@ public class HealthBar : MonoBehaviour
             lifeSlider.value = initialHealth - (int)timer.Get();
             if(lifeSlider.value <= 0)
             {
-                OnLifeOver.Invoke();
+                OnLifeOver?.Invoke();
+                GetComponentInParent<CharacterMovement>().OnCharcterDead();
             }
         }
         else if(toStopDwonloadHelth)
@@ -56,14 +44,14 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private void OnStartDownloadHealth()
+    public void OnStartDownloadHealth()
     {
         toStartDwonloadHelth = true;
         toStopDwonloadHelth = false;
         timer.Reset();
     }
 
-    private void OnStopDownloadHealth(ItemObject item)
+    public void OnStopDownloadHealth()
     {
         toStartDwonloadHelth = false;
         toStopDwonloadHelth = true;

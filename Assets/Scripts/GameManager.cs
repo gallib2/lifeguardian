@@ -41,6 +41,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(lifeSlider.value <= 0)
+        {
+            Debug.Log("GAME OVER! ");
+        }
+
         if(shouldMoveCamera)
         {
             float step = speed * Time.deltaTime;

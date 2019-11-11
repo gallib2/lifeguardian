@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e21315763b5b4790955df23f007e7b1, type: 3}
-  m_Name: kid
+  m_Name: kid 1
   m_EditorClassIdentifier: 
   prefub: {fileID: 1723907153599576426, guid: 4507daf7519ff4c94b2a0fa66aabc399, type: 3}
   type: 0
   timeToFinishWork: 5
   allowedZone: {fileID: 8727273084158649556, guid: 7d5bb47b4f69b479395fad6f1f92e6c5,
     type: 3}
-  itemName: kidon
+  itemName: kidkid
   description: 
   lifeTimeValue: 5
   dangerZone: {fileID: 3771300597580285707, guid: f29e1c1fc35684ad6868fedfb388bd2d,

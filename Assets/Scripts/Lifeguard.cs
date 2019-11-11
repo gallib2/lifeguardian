@@ -21,7 +21,7 @@ public class Lifeguard : MonoBehaviour
     private void AddItemToInventory(ItemObject item)
     {
         inventory.AddItem(item, 1);
-        OnItemAddToInventory.Invoke();
+        OnItemAddToInventory?.Invoke();
     }
 
     private void OnApplicationQuit()
