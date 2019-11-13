@@ -12,9 +12,12 @@ public class HealthBar : MonoBehaviour
     public int timeTo = 5;
     public Slider lifeSlider;
     public Transform target;
+    public GameObject wholeObjectToDestroy;
+
     private bool toStartDwonloadHelth;
     private bool toStopDwonloadHelth;
     private TimerHelper timer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +29,8 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        lifeSlider.transform.position = new Vector3(target.position.x, lifeSlider.transform.position.y, lifeSlider.transform.position.z);
+        lifeSlider.transform.position = new Vector3(target.position.x, target.position.y + 0.5f, lifeSlider.transform.position.z);
+        //lifeSlider.transform.position = new Vector3(target.position.x, lifeSlider.transform.position.y, lifeSlider.transform.position.z);
 
         if(toStartDwonloadHelth && (int)timer.Get() > 0)
         {
@@ -34,7 +38,9 @@ public class HealthBar : MonoBehaviour
             if(lifeSlider.value <= 0)
             {
                 OnLifeOver?.Invoke();
-                GetComponentInParent<CharacterMovement>().OnCharcterDead();
+                Destroy(wholeObjectToDestroy);
+                //character.OnCharcterDead();
+                //Destroy(gameObject);
             }
         }
         else if(toStopDwonloadHelth)

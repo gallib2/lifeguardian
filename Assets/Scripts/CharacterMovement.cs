@@ -12,8 +12,10 @@ public class CharacterMovement : MonoBehaviour
     public Transform groundDetection;
     public float speed;
     public float distance;
-    public int moveToDangerPerXSeconds;
+    public int minTimeToStartMoveToDanger;
+    public int maxTimeToStartMoveToDanger;
 
+    private int moveToDangerPerXSeconds;
     private AudioSource audioSource;
     private CharacterObject kidItem;
     private TimerHelper timer;
@@ -32,7 +34,9 @@ public class CharacterMovement : MonoBehaviour
         target = new Vector3(2f, 0, 0); //kidItem.dangerZone.transform.position;
         timer = new TimerHelper();
         initPosition = transform.position;
-        moveToDangerPerXSeconds = UnityEngine.Random.Range(5, 15);
+        moveToDangerPerXSeconds = UnityEngine.Random.Range(minTimeToStartMoveToDanger, maxTimeToStartMoveToDanger);
+        minTimeToStartMoveToDanger = 8;
+        maxTimeToStartMoveToDanger = 25;
         Debug.Log("moveToDangerPerXSeconds: " + moveToDangerPerXSeconds);
     }
 
@@ -79,7 +83,9 @@ public class CharacterMovement : MonoBehaviour
         {
             isInDangerZone = true;
             OnMoveToDanger?.Invoke();
-            GetComponentInChildren<HealthBar>().OnStartDownloadHealth();
+            GetComponent<Item>().healthBar.OnStartDownloadHealth();
+            //healthBar.OnStartDownloadHealth();
+            //GetComponentInChildren<HealthBar>().OnStartDownloadHealth();
         }
     }
 
@@ -87,7 +93,9 @@ public class CharacterMovement : MonoBehaviour
     {
         if (collision.tag == "flagsZone_right")
         {
+            moveToDangerPerXSeconds = UnityEngine.Random.Range(5, 15);
             isInDangerZone = false;
+            timer.Reset();
         }
     }
 
