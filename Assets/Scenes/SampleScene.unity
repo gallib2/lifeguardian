@@ -4460,9 +4460,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefub: {fileID: 7654206645728847787, guid: 3d3b35678add548c5b9e6b1cf104de8c,
     type: 3}
-  speed: 1
-  timesInTheWater: 1400000005000000
-  timesOutsideTheWater: 0f0000000a000000
+  characters: []
+  timesInTheWater: 140000001e000000
+  timesOutsideTheWater: 1e00000014000000
   positions:
   - {x: 0, y: 0, z: 0}
   - {x: -0.5, y: -2, z: 0}

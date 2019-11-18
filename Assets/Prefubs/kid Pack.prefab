@@ -931,7 +931,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7654206645482259426}
   - component: {fileID: 7654206645482259425}
-  - component: {fileID: 7235869125110347835}
   m_Layer: 0
   m_Name: Character Ground (1)
   m_TagString: Untagged
@@ -979,19 +978,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6573435, y: 0.29434633}
   m_EdgeRadius: 0
---- !u!114 &7235869125110347835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7654206645482259427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 479791b7efaaf445a9aaaf5266a00ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 7654206645728847786}
 --- !u!1 &7654206645728847787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +987,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7654206645728847786}
+  - component: {fileID: 6217540306750159733}
   m_Layer: 0
   m_Name: kid Pack
   m_TagString: Untagged
@@ -1025,3 +1012,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6217540306750159733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654206645728847787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f9bea1edf3c4888ad08be6517130f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInTheWater: 0
+  speed: 1

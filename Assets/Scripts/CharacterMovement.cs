@@ -17,12 +17,11 @@ public class CharacterMovement : MonoBehaviour
 
     private int moveToDangerPerXSeconds;
     private AudioSource audioSource;
-    private CharacterObject kidItem;
     private TimerHelper timer;
     private bool movingRight = true;
     private bool moveToDanger = false;
     private bool continueCheckTime = true;
-    private Vector3 target;
+    private Vector3 dangerTarget;
     //private Vector3 initPosition;
     private bool isInDangerZone = false;
 
@@ -37,8 +36,7 @@ public class CharacterMovement : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        kidItem = GetComponent<Item>().item as CharacterObject;
-        target = new Vector3(2f, 0, 0); //kidItem.dangerZone.transform.position;
+        dangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
         timer = new TimerHelper();
         //initPosition = transform.position;
         moveToDangerPerXSeconds = UnityEngine.Random.Range(minTimeToStartMoveToDanger, maxTimeToStartMoveToDanger);
@@ -56,9 +54,7 @@ public class CharacterMovement : MonoBehaviour
             if(!continueCheckTime || moveToDanger)
             {
                 continueCheckTime = false;
-                MoveCharacterTowards(transform, target);
-                //float step = speed * Time.deltaTime;
-                //transform.position = Vector2.MoveTowards(transform.position, target, step); 
+                MoveCharacterTowards(transform, dangerTarget);
             }
             else
             {
