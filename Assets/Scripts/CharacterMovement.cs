@@ -10,18 +10,18 @@ public class CharacterMovement : MonoBehaviour
     public List<AudioClip> audioOnSafePlace;
     public List<AudioClip> audioOnDangerPlace;
     public Transform groundDetection;
-    public float speed;
+    public float speed = 0.5f;
     public float distance;
-    public int minTimeToStartMoveToDanger;
-    public int maxTimeToStartMoveToDanger;
+    //public int minTimeToStartMoveToDanger;
+    //public int maxTimeToStartMoveToDanger;
 
-    private int moveToDangerPerXSeconds;
+    //private int moveToDangerPerXSeconds;
     private AudioSource audioSource;
     private TimerHelper timer;
     private bool movingRight = true;
-    private bool moveToDanger = false;
-    private bool continueCheckTime = true;
-    private Vector3 dangerTarget;
+    //private bool moveToDanger = false;
+    //private bool continueCheckTime = true;
+    //private Vector3 dangerTarget;
     //private Vector3 initPosition;
     private bool isInDangerZone = false;
 
@@ -36,60 +36,7 @@ public class CharacterMovement : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        dangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
-        timer = new TimerHelper();
-        //initPosition = transform.position;
-        moveToDangerPerXSeconds = UnityEngine.Random.Range(minTimeToStartMoveToDanger, maxTimeToStartMoveToDanger);
-        minTimeToStartMoveToDanger = 8;
-        maxTimeToStartMoveToDanger = 25;
-        Debug.Log("moveToDangerPerXSeconds: " + moveToDangerPerXSeconds);
-    }
-
-    private void Update()
-    {
-        moveToDanger = continueCheckTime && (int)timer.Get() > 0 && ((int)timer.Get() % moveToDangerPerXSeconds) == 0;
-
-        if(ArrivedPatrolPosition)
-        {
-            if(!continueCheckTime || moveToDanger)
-            {
-                continueCheckTime = false;
-                MoveCharacterTowards(transform, dangerTarget);
-            }
-            else
-            {
-                Patrol();
-            }
-        }
-    
-
-    }
-
-    private void MoveCharacterTowards(Transform _transform, Vector3 _target)
-    {
-        float step = speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(_transform.position, _target, step);
-    }
-
-    public void MoveToSafty(ItemObject item)
-    {
-        // TODO the time that takes to return to safty is the time of the ui OR remove the ui for now
-        if (isInDangerZone)
-        {
-            int clipsSize = audioOnDangerPlace.Count;
-            int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
-
-            audioSource.PlayOneShot(audioOnDangerPlace[soundToPlay]);
-            continueCheckTime = true;
-            transform.position = InitPosition; // todo maybe use the MoveCharacterTowards
-        }
-        else
-        {
-            int clipsSize = audioOnSafePlace.Count;
-            int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
-
-            audioSource.PlayOneShot(audioOnSafePlace[soundToPlay]);
-        }
+        //dangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,6 +44,7 @@ public class CharacterMovement : MonoBehaviour
         if (collision.tag == "flagsZone_right")
         {
             isInDangerZone = true;
+            GetComponentInParent<KidPackController>().IsInDangerZone = true;
             OnMoveToDanger?.Invoke();
             GetComponent<Item>().healthBar.OnStartDownloadHealth();
             //healthBar.OnStartDownloadHealth();
@@ -108,13 +56,18 @@ public class CharacterMovement : MonoBehaviour
     {
         if (collision.tag == "flagsZone_right")
         {
-            moveToDangerPerXSeconds = UnityEngine.Random.Range(5, 15);
+            //moveToDangerPerXSeconds = UnityEngine.Random.Range(5, 15);
             isInDangerZone = false;
-            timer.Reset();
+            KidPackController kidPackController = GetComponentInParent<KidPackController>();
+            if (kidPackController)
+            {
+                kidPackController.IsInDangerZone = false;
+                kidPackController.MoveToDangerPerXSeconds = UnityEngine.Random.Range(5, 15);
+            }
         }
     }
 
-    private void Patrol()
+    public void Patrol()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);

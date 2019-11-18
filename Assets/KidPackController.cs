@@ -5,8 +5,7 @@ using UnityEngine;
 public class KidPackController : MonoBehaviour
 {
     public bool isInTheWater;
-    //public Vector3 position;
-    //public Vector3 initPosition {get;set;};
+
     public Vector3 TargetPosition { get; set; }
     public Vector3 InitPosition { get; set; }
     public int TimeInTheWater { get; set; }
@@ -14,58 +13,126 @@ public class KidPackController : MonoBehaviour
     public bool ArrivedWaterPosition { get; set; }
     public bool ArrivedOutsidePosition { get; set; }
 
+    public bool IsInDangerZone { get; set; }
+
+    public int MoveToDangerPerXSeconds { get; set; }
+    public int minTimeToStartMoveToDanger;
+    public int maxTimeToStartMoveToDanger;
+    private bool moveToDanger = false;
+    private Vector3 dangerTarget;
+
+
     private TimerHelper timer;
-    public float speed = 1f; // todo
+    public float speed = 0.2f; // todo
     private bool continueCheckTimeToExit = true;
     private bool continueCheckTimeToEnter = true;
+    private bool danger_continueCheckTime = true;
 
     // Start is called before the first frame update
     void Start()
     {
         timer = new TimerHelper();
+        dangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
+        minTimeToStartMoveToDanger = 8;
+        maxTimeToStartMoveToDanger = 25;
+        MoveToDangerPerXSeconds = UnityEngine.Random.Range(minTimeToStartMoveToDanger, maxTimeToStartMoveToDanger);
+        Debug.Log("moveToDangerPerXSeconds: " + MoveToDangerPerXSeconds);
     }
 
     private void FixedUpdate()
     {
-        bool needToEnterWater = continueCheckTimeToEnter && (int)timer.Get() % TimeInOutsideWater == 0;
-
-        if (!isInTheWater)
+        if(!IsInDangerZone)
         {
-            bool canEnterWater = (!continueCheckTimeToEnter || needToEnterWater);
-            //bool canEnterWater = (howManyInTheWater < maxPeopleInTheWater) && (!continueCheckTimeToEnter || needToEnterWater);
-
-            if (canEnterWater)
+            if (!isInTheWater)
             {
-                // Enter the water
-                Vector3 target = TargetPosition;
-                continueCheckTimeToEnter = false;
-                ArrivedWaterPosition = MoveObject(target);
-
-                if (ArrivedWaterPosition)
-                {
-                    //howManyInTheWater++;
-                    continueCheckTimeToExit = true;
-                }
+                EnterToWater();
             }
+            else
+            {
+                ExitWater();
+            }
+        }
 
+
+        if (ArrivedWaterPosition)
+        {
+            moveToDanger = danger_continueCheckTime && (int)timer.Get() > 0 && ((int)timer.Get() % MoveToDangerPerXSeconds) == 0;
+            if (!danger_continueCheckTime || moveToDanger)
+            {
+                danger_continueCheckTime = false;
+                MoveCharacterTowards(transform, dangerTarget);
+            }
+            else
+            {
+                GetComponentInChildren<CharacterMovement>().Patrol();
+            }
+        }
+    }
+
+    private void MoveCharacterTowards(Transform _transform, Vector3 _target)
+    {
+        float step = speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(_transform.position, _target, step);
+    }
+
+    public void MoveToSafty(ItemObject item)
+    {
+        // TODO the time that takes to return to safty is the time of the ui OR remove the ui for now
+        if (IsInDangerZone)
+        {
+            //int clipsSize = audioOnDangerPlace.Count;
+            //int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
+
+            //audioSource.PlayOneShot(audioOnDangerPlace[soundToPlay]);
+            danger_continueCheckTime = true;
+            transform.position = TargetPosition; // todo maybe use the MoveCharacterTowards
         }
         else
         {
-            bool needToExitWater = continueCheckTimeToExit && (int)timer.Get() % TimeInTheWater == 0;
+            //int clipsSize = audioOnSafePlace.Count;
+            //int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
 
-            if (!continueCheckTimeToExit || needToExitWater)
+            //audioSource.PlayOneShot(audioOnSafePlace[soundToPlay]);
+        }
+    }
+
+    public void EnterToWater()
+    {
+        bool needToEnterWater = continueCheckTimeToEnter && (int)timer.Get() % TimeInOutsideWater == 0;
+        bool canEnterWater = (!continueCheckTimeToEnter || needToEnterWater);
+        //bool canEnterWater = (howManyInTheWater < maxPeopleInTheWater) && (!continueCheckTimeToEnter || needToEnterWater);
+
+        if (canEnterWater)
+        {
+            // Enter the water
+            Vector3 target = TargetPosition;
+            continueCheckTimeToEnter = false;
+            ArrivedWaterPosition = MoveObject(target);
+
+            if (ArrivedWaterPosition)
             {
-                // Exit form water
-                continueCheckTimeToExit = false;
-                Vector3 target = InitPosition;
+                //howManyInTheWater++;
+                continueCheckTimeToExit = true;
+            }
+        }
+    }
 
-                ArrivedOutsidePosition = MoveObject(target);
+    private void ExitWater()
+    {
+        bool needToExitWater = continueCheckTimeToExit && (int)timer.Get() % TimeInTheWater == 0;
 
-                if (ArrivedOutsidePosition)
-                {
-                    //howManyInTheWater--;
-                    continueCheckTimeToEnter = true;
-                }
+        if (!continueCheckTimeToExit || needToExitWater)
+        {
+            // Exit form water
+            continueCheckTimeToExit = false;
+            Vector3 target = InitPosition;
+
+            ArrivedOutsidePosition = MoveObject(target);
+
+            if (ArrivedOutsidePosition)
+            {
+                //howManyInTheWater--;
+                continueCheckTimeToEnter = true;
             }
         }
     }

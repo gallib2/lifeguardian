@@ -15,9 +15,10 @@ public class Item : MonoBehaviour
     public void OnMouseDown()
     {
         OnItemClicked?.Invoke(item);
-        GetComponent<CharacterMovement>().MoveToSafty(item);
+        GetComponentInParent<KidPackController>()?.MoveToSafty(item);
+        //GetComponent<CharacterMovement>().MoveToSafty(item);
         //GetComponentInChildren<HealthBar>().OnStopDownloadHealth();
-        healthBar.OnStopDownloadHealth();
+        healthBar?.OnStopDownloadHealth();
     }
 
     // todo detect if pass allowed zone OR in random time move forward to danger position

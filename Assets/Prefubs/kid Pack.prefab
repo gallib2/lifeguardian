@@ -728,8 +728,6 @@ MonoBehaviour:
   groundDetection: {fileID: 7654206644262430622}
   speed: 0.3
   distance: 2
-  minTimeToStartMoveToDanger: 8
-  maxTimeToStartMoveToDanger: 25
 --- !u!50 &7654206645143393577
 Rigidbody2D:
   serializedVersion: 4
@@ -1025,4 +1023,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInTheWater: 0
+  minTimeToStartMoveToDanger: 0
+  maxTimeToStartMoveToDanger: 0
   speed: 1
