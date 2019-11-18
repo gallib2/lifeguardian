@@ -9,6 +9,7 @@ public class InventoryObject : ScriptableObject
 
     public void AddItem(ItemObject _item, int _amount)
     {
+        //container.Add(new InventorySlot(_item, _amount));
         container.Add(new InventorySlot(_item, _amount));
 
         //bool hasItem = false;
@@ -33,12 +34,16 @@ public class InventoryObject : ScriptableObject
 public class InventorySlot
 {
     public ItemObject item;
+    public TimerHelper timerHelper;
+    public int timeToFinishWork;
     public int amount;
 
     public InventorySlot(ItemObject _item, int _amount)
     {
         item = _item;
+        timeToFinishWork = _item.timeToFinishWork;
         amount = _amount;
+        timerHelper = new TimerHelper();
     }
 
     public void AddAmount(int value)

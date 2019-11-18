@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Lifeguard : MonoBehaviour
 {
+    public bool toAllowInventory;
     public static event Action OnItemAddToInventory;
     public InventoryObject inventory;
 
@@ -20,8 +21,11 @@ public class Lifeguard : MonoBehaviour
 
     private void AddItemToInventory(ItemObject item)
     {
-        inventory.AddItem(item, 1);
-        OnItemAddToInventory.Invoke();
+        if(toAllowInventory)
+        {
+            inventory.AddItem(item, 1);
+            OnItemAddToInventory?.Invoke();
+        }
     }
 
     private void OnApplicationQuit()

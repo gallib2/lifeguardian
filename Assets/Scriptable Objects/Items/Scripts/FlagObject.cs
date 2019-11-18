@@ -8,5 +8,6 @@ public class FlagObject : ItemObject
     private void Awake()
     {
         type = ItemType.Flag;
+        timeToFinishWork = 3;
     }
 }

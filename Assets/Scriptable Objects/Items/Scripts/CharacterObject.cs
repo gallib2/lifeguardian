@@ -6,8 +6,10 @@ using UnityEngine;
 public class CharacterObject : ItemObject
 {
     public int lifeTimeValue;
+    public GameObject dangerZone;
     private void Awake()
     {
         type = ItemType.Character;
+        timeToFinishWork = 5;
     }
 }
