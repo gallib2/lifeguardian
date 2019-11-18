@@ -5,6 +5,8 @@ using UnityEngine;
 public class KidPackController : MonoBehaviour
 {
     public bool isInTheWater;
+    public List<AudioClip> audioOnSafePlace;
+    public List<AudioClip> audioOnDangerPlace;
 
     public Vector3 TargetPosition { get; set; }
     public Vector3 InitPosition { get; set; }
@@ -19,9 +21,9 @@ public class KidPackController : MonoBehaviour
     public int minTimeToStartMoveToDanger;
     public int maxTimeToStartMoveToDanger;
     private bool moveToDanger = false;
-    private Vector3 dangerTarget;
+    public Vector3 DangerTarget { get; set; }
 
-
+    private AudioSource audioSource;
     private TimerHelper timer;
     public float speed = 0.2f; // todo
     private bool continueCheckTimeToExit = true;
@@ -32,7 +34,9 @@ public class KidPackController : MonoBehaviour
     void Start()
     {
         timer = new TimerHelper();
-        dangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
+        audioSource = GetComponent<AudioSource>();
+        //DangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
+        //dangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
         minTimeToStartMoveToDanger = 8;
         maxTimeToStartMoveToDanger = 25;
         MoveToDangerPerXSeconds = UnityEngine.Random.Range(minTimeToStartMoveToDanger, maxTimeToStartMoveToDanger);
@@ -60,7 +64,7 @@ public class KidPackController : MonoBehaviour
             if (!danger_continueCheckTime || moveToDanger)
             {
                 danger_continueCheckTime = false;
-                MoveCharacterTowards(transform, dangerTarget);
+                MoveCharacterTowards(transform, DangerTarget);
             }
             else
             {
@@ -80,19 +84,19 @@ public class KidPackController : MonoBehaviour
         // TODO the time that takes to return to safty is the time of the ui OR remove the ui for now
         if (IsInDangerZone)
         {
-            //int clipsSize = audioOnDangerPlace.Count;
-            //int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
+            int clipsSize = audioOnDangerPlace.Count;
+            int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
 
-            //audioSource.PlayOneShot(audioOnDangerPlace[soundToPlay]);
+            audioSource.PlayOneShot(audioOnDangerPlace[soundToPlay]);
             danger_continueCheckTime = true;
             transform.position = TargetPosition; // todo maybe use the MoveCharacterTowards
         }
         else
         {
-            //int clipsSize = audioOnSafePlace.Count;
-            //int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
+            int clipsSize = audioOnSafePlace.Count;
+            int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
 
-            //audioSource.PlayOneShot(audioOnSafePlace[soundToPlay]);
+            audioSource.PlayOneShot(audioOnSafePlace[soundToPlay]);
         }
     }
 
@@ -146,13 +150,13 @@ public class KidPackController : MonoBehaviour
 
 
         transform.position = Vector2.MoveTowards(transform.position, target, step);
-        GetComponentInChildren<CharacterMovement>().ArrivedPatrolPosition = false;
+        //GetComponentInChildren<CharacterMovement>().ArrivedPatrolPosition = false;
         arrivePosition = transform.position == target;
 
         if (arrivePosition)
         {
             isInTheWater = !isInTheWater;
-            GetComponentInChildren<CharacterMovement>().ArrivedPatrolPosition = true;
+            //GetComponentInChildren<CharacterMovement>().ArrivedPatrolPosition = true;
         }
 
         return arrivePosition;

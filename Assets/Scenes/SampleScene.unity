@@ -1257,15 +1257,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d84140c176f847a9b4855b64ded61ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioOnSafePlace:
-  - {fileID: 8300000, guid: a391926a0af374bdc86c154bce96abd4, type: 3}
-  audioOnDangerPlace:
-  - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
-  groundDetection: {fileID: 1233054222}
+  groundDetection: {fileID: 0}
   speed: 0.3
-  distance: 2
-  minTimeToStartMoveToDanger: 8
-  maxTimeToStartMoveToDanger: 25
+  distance: 0
 --- !u!61 &433260883
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4154,15 +4148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d84140c176f847a9b4855b64ded61ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioOnSafePlace:
-  - {fileID: 8300000, guid: a391926a0af374bdc86c154bce96abd4, type: 3}
-  audioOnDangerPlace:
-  - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
-  groundDetection: {fileID: 757957005}
+  groundDetection: {fileID: 0}
   speed: 0.3
-  distance: 2
-  minTimeToStartMoveToDanger: 8
-  maxTimeToStartMoveToDanger: 25
+  distance: 0
 --- !u!61 &1339387529
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4972,12 +4960,12 @@ PrefabInstance:
     - target: {fileID: 7654206645728847786, guid: 3d3b35678add548c5b9e6b1cf104de8c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7654206645728847786, guid: 3d3b35678add548c5b9e6b1cf104de8c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.98
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7654206645728847786, guid: 3d3b35678add548c5b9e6b1cf104de8c,
         type: 3}
@@ -6693,15 +6681,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d84140c176f847a9b4855b64ded61ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioOnSafePlace:
-  - {fileID: 8300000, guid: a391926a0af374bdc86c154bce96abd4, type: 3}
-  audioOnDangerPlace:
-  - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
-  groundDetection: {fileID: 8225663328756808791}
+  groundDetection: {fileID: 0}
   speed: 0.3
-  distance: 2
-  minTimeToStartMoveToDanger: 8
-  maxTimeToStartMoveToDanger: 25
+  distance: 0
 --- !u!4 &8225663328634190788
 Transform:
   m_ObjectHideFlags: 0

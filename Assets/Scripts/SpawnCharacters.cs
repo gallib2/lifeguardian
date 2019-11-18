@@ -28,12 +28,15 @@ public class SpawnCharacters : MonoBehaviour
         for (int i = 0; i < arrSize; i++)
         {
             GameObject chararcter = Instantiate(characterPrefub,lowerLeftPosition, Quaternion.identity ,transform);
+            KidPackController kidPackController = chararcter.GetComponent<KidPackController>();
             chararcter.transform.position = lowerLeftPosition; // todo change to random between the rightLower x position
-            chararcter.GetComponent<KidPackController>().InitPosition = lowerLeftPosition;
-            chararcter.GetComponent<KidPackController>().TargetPosition = positions[i];
-            chararcter.GetComponentInChildren<CharacterMovement>().InitPosition = positions[i];
-            chararcter.GetComponent<KidPackController>().TimeInTheWater = timesInTheWater[i];
-            chararcter.GetComponent<KidPackController>().TimeInOutsideWater = timesOutsideTheWater[i];
+            kidPackController.InitPosition = lowerLeftPosition;
+            kidPackController.TargetPosition = positions[i];
+            kidPackController.TimeInTheWater = timesInTheWater[i];
+            kidPackController.TimeInOutsideWater = timesOutsideTheWater[i];
+            kidPackController.DangerTarget = new Vector3(2f,-(i * 2), 0); // TODO dlete i*2!!
+
+            // new Vector3(2f, 0, 0)
 
             //CharacterSettings characterSettings = new CharacterSettings(timeInTheWater, timeInOutsideWater, position, lowerLeftPosition, chararcter);
             //characters.Add(characterSettings);
