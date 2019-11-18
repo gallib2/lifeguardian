@@ -23,8 +23,15 @@ public class CharacterMovement : MonoBehaviour
     private bool moveToDanger = false;
     private bool continueCheckTime = true;
     private Vector3 target;
-    private Vector3 initPosition;
+    //private Vector3 initPosition;
     private bool isInDangerZone = false;
+
+    private Vector3 positionToEnterWater;
+    private bool needToEnterWater; // false when arrive position
+    private bool needToExitWater; // false when arrive position
+
+    public Vector3 InitPosition { get; set; }
+    public bool ArrivedPatrolPosition { get; set; }
 
 
     private void Start()
@@ -33,7 +40,7 @@ public class CharacterMovement : MonoBehaviour
         kidItem = GetComponent<Item>().item as CharacterObject;
         target = new Vector3(2f, 0, 0); //kidItem.dangerZone.transform.position;
         timer = new TimerHelper();
-        initPosition = transform.position;
+        //initPosition = transform.position;
         moveToDangerPerXSeconds = UnityEngine.Random.Range(minTimeToStartMoveToDanger, maxTimeToStartMoveToDanger);
         minTimeToStartMoveToDanger = 8;
         maxTimeToStartMoveToDanger = 25;
@@ -44,16 +51,28 @@ public class CharacterMovement : MonoBehaviour
     {
         moveToDanger = continueCheckTime && (int)timer.Get() > 0 && ((int)timer.Get() % moveToDangerPerXSeconds) == 0;
 
-        if(!continueCheckTime || moveToDanger)
+        if(ArrivedPatrolPosition)
         {
-            float step = speed * Time.deltaTime;
-            continueCheckTime = false;
-            transform.position = Vector2.MoveTowards(transform.position, target, step); 
-        } 
-        else
-        {
-            Patrol();
+            if(!continueCheckTime || moveToDanger)
+            {
+                continueCheckTime = false;
+                MoveCharacterTowards(transform, target);
+                //float step = speed * Time.deltaTime;
+                //transform.position = Vector2.MoveTowards(transform.position, target, step); 
+            }
+            else
+            {
+                Patrol();
+            }
         }
+    
+
+    }
+
+    private void MoveCharacterTowards(Transform _transform, Vector3 _target)
+    {
+        float step = speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(_transform.position, _target, step);
     }
 
     public void MoveToSafty(ItemObject item)
@@ -66,7 +85,7 @@ public class CharacterMovement : MonoBehaviour
 
             audioSource.PlayOneShot(audioOnDangerPlace[soundToPlay]);
             continueCheckTime = true;
-            transform.position = initPosition;
+            transform.position = InitPosition; // todo maybe use the MoveCharacterTowards
         }
         else
         {
