@@ -39,9 +39,6 @@ public class HealthBar : MonoBehaviour
         timer = new TimerHelper();
         lifeSlider = GetComponent<Slider>();
 
-        Debug.Log("InitialHealth: " + InitialHealth);
-        Debug.Log("initialHealth: " + initialHealth);
-
         lifeSlider.maxValue = InitialHealth;
     }
 
@@ -53,13 +50,6 @@ public class HealthBar : MonoBehaviour
         if(toStartDwonloadHelth && (int)timer.Get() > 0)
         {
             lifeSlider.value = InitialHealth - (int)timer.Get();
-            if(lifeSlider.value <= 0)
-            {
-                //OnLifeOver?.Invoke();
-                //Destroy(wholeObjectToDestroy);
-                //character.OnCharcterDead();
-                //Destroy(gameObject);
-            }
         }
         else if(toStopDwonloadHelth)
         {

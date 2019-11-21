@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class BeachWalker : MonoBehaviour
 {
     public static event Action OnBeachWalkerClicked;
+    public static event Action OnBeachWalkerOut;
+
+    private AudioSource audioSource;
+    public List<AudioClip> audioClips;
 
     public Transform targetOnBeach;
     public Transform targetOut;
@@ -15,7 +19,6 @@ public class BeachWalker : MonoBehaviour
     public HealthBar healthBar;
 
     private TimerHelper timer;
-    private bool continueCheckTimeOnBeach;
     private bool toResetTimer;
     private bool moveToBeachTarget;
     private bool moveOutTarget;
@@ -31,6 +34,7 @@ public class BeachWalker : MonoBehaviour
         moveToBeachTarget = true;
         toResetTimer = true;
         timer = new TimerHelper();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,7 +51,7 @@ public class BeachWalker : MonoBehaviour
                     timer.Reset();
                     toResetTimer = false;
                 }
-                //continueCheckTimeOnBeach = true;
+
                 moveOutTarget = (int)timer.Get() > 0 && (int)timer.Get() % timeToStayOnBeachTarget == 0;
             }
         }
@@ -56,11 +60,28 @@ public class BeachWalker : MonoBehaviour
         {
             moveToBeachTarget = false;
             MoveCharacterTowards(targetOut);
+
+            if (transform.position == targetOut.position)
+            {
+                OnBeachWalkerOut?.Invoke();
+            }
         }
+    }
+
+    private void SpeakWithBeachWalker()
+    {
+        int index = UnityEngine.Random.Range(0, audioClips.Count-1);
+        moveOutTarget = false;
+
+        audioSource.PlayOneShot(audioClips[index]);
+
+        //moveOutTarget = true;
     }
 
     private void OnMouseDown()
     {
+        // todo call function that: moveOutTarget = false; stay to "speak" for few seconds and then moveout = true;
+        SpeakWithBeachWalker();
         healthBar.OnStopDownloadHealth();
         OnBeachWalkerClicked?.Invoke();
     }

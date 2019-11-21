@@ -37,6 +37,29 @@ public class SwipeDetector : MonoBehaviour
                 DetectSwipe();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            SwipeData swipeData = new SwipeData
+            {
+                Direction = SwipeDirection.Left,
+                StartPosition = fingerDownPosition,
+                EndPosition = fingerUpPosition
+            };
+
+            OnSwipe(swipeData);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            SwipeData swipeData = new SwipeData
+            {
+                Direction = SwipeDirection.Right,
+                StartPosition = fingerDownPosition,
+                EndPosition = fingerUpPosition
+            };
+
+            OnSwipe(swipeData);
+        }
     }
 
     private void DetectSwipe()
