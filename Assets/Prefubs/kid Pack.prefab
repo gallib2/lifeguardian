@@ -246,10 +246,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 1
-  timeTo: 5
   lifeSlider: {fileID: 0}
   target: {fileID: 0}
-  wholeObjectToDestroy: {fileID: 0}
+  offsetYSliderPosition: 0.5
 --- !u!1 &7654206644262430623
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: -223}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 114.722, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7654206644278643153
@@ -382,10 +381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 10
-  timeTo: 5
   lifeSlider: {fileID: 0}
   target: {fileID: 7654206643895357163}
-  wholeObjectToDestroy: {fileID: 7654206645728847787}
+  offsetYSliderPosition: 0.5
 --- !u!1 &7654206644365413665
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,8 +566,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.034, y: 0.991}
-  m_SizeDelta: {x: 2321.844, y: 4089.83}
+  m_AnchoredPosition: {x: 0.075, y: 0.574}
+  m_SizeDelta: {x: 605.048, y: 193.619}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7654206644668280695
 Canvas:

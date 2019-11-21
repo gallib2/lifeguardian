@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KidPackController : MonoBehaviour
 {
+    public static event Action OnLifeOver;
+
     public bool isInTheWater;
     public List<AudioClip> audioOnSafePlace;
     public List<AudioClip> audioOnDangerPlace;
@@ -30,11 +34,15 @@ public class KidPackController : MonoBehaviour
     private bool continueCheckTimeToEnter = true;
     private bool danger_continueCheckTime = true;
 
+    private Slider lifeSlider;
+
+
     // Start is called before the first frame update
     void Start()
     {
         timer = new TimerHelper();
         audioSource = GetComponent<AudioSource>();
+        lifeSlider = GetComponentInChildren<Slider>();
         //DangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
         //dangerTarget = new Vector3(2f, 0, 0); // todo kidItem.dangerZone.transform.position; (GetComponent<Item>().item as CharacterObject;)
         minTimeToStartMoveToDanger = 8;
@@ -45,6 +53,14 @@ public class KidPackController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log("lifeSlider.value: " + lifeSlider.value);
+
+        if(lifeSlider.value <= 0)
+        {
+            OnLifeOver?.Invoke();
+            Destroy(gameObject);
+        }
+
         if(!IsInDangerZone)
         {
             if (!isInTheWater)
@@ -79,7 +95,7 @@ public class KidPackController : MonoBehaviour
         transform.position = Vector2.MoveTowards(_transform.position, _target, step);
     }
 
-    public void MoveToSafty(ItemObject item)
+    public void MoveToSafty()
     {
         // TODO the time that takes to return to safty is the time of the ui OR remove the ui for now
         if (IsInDangerZone)

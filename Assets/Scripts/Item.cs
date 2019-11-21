@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
     public void OnMouseDown()
     {
         OnItemClicked?.Invoke(item);
-        GetComponentInParent<KidPackController>()?.MoveToSafty(item);
+        GetComponentInParent<KidPackController>()?.MoveToSafty();
         //GetComponent<CharacterMovement>().MoveToSafty(item);
         //GetComponentInChildren<HealthBar>().OnStopDownloadHealth();
         healthBar?.OnStopDownloadHealth();
