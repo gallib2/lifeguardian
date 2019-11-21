@@ -98,7 +98,7 @@ public class KidPackController : MonoBehaviour
         // TODO the time that takes to return to safty is the time of the ui OR remove the ui for now
         if (IsInDangerZone)
         {
-            int clipsSize = audioOnDangerPlace.Count - 1;
+            int clipsSize = audioOnDangerPlace.Count;
             int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
 
             audioSource.PlayOneShot(audioOnDangerPlace[soundToPlay]);
@@ -107,7 +107,7 @@ public class KidPackController : MonoBehaviour
         }
         else
         {
-            int clipsSize = audioOnSafePlace.Count - 1;
+            int clipsSize = audioOnSafePlace.Count;
             int soundToPlay = UnityEngine.Random.Range(0, clipsSize);
 
             audioSource.PlayOneShot(audioOnSafePlace[soundToPlay]);

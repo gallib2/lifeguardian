@@ -688,6 +688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips:
   - {fileID: 8300000, guid: 212b1770607ea4dfaa5298f36cbef679, type: 3}
+  - {fileID: 8300000, guid: feb7a3880eaed4babbb38a9e0a0bf55d, type: 3}
   targetOnBeach: {fileID: 6118152063548238902}
   targetOut: {fileID: 6118152063445080545}
   speed: 0.5

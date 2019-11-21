@@ -40,7 +40,6 @@ public class SpawnWalkers : MonoBehaviour
 
         if (isMaxWalkersOnAction && toCreateWalker)
         {
-            Debug.Log("inside if: ");
             numOfWalkersOnAction++;
             currentWalker = Instantiate(prefub_walker, transform);
         }

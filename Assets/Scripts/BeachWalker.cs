@@ -23,6 +23,8 @@ public class BeachWalker : MonoBehaviour
     private bool moveToBeachTarget;
     private bool moveOutTarget;
 
+    private bool isArriveBeachTargetPosition;
+
     private void Awake()
     {
         healthBar.InitialHealth = timeToStayOnBeachTarget;
@@ -43,7 +45,8 @@ public class BeachWalker : MonoBehaviour
         if(moveToBeachTarget)
         {
             MoveCharacterTowards(targetOnBeach);
-            if(transform.position == targetOnBeach.position)
+            isArriveBeachTargetPosition = transform.position == targetOnBeach.position;
+            if (isArriveBeachTargetPosition)
             {
                 if (toResetTimer)
                 {
@@ -60,6 +63,7 @@ public class BeachWalker : MonoBehaviour
         {
             moveToBeachTarget = false;
             MoveCharacterTowards(targetOut);
+            isArriveBeachTargetPosition = false;
 
             if (transform.position == targetOut.position)
             {
@@ -70,7 +74,7 @@ public class BeachWalker : MonoBehaviour
 
     private void SpeakWithBeachWalker()
     {
-        int index = UnityEngine.Random.Range(0, audioClips.Count-1);
+        int index = UnityEngine.Random.Range(0, audioClips.Count);
         moveOutTarget = false;
 
         audioSource.PlayOneShot(audioClips[index]);
@@ -81,9 +85,12 @@ public class BeachWalker : MonoBehaviour
     private void OnMouseDown()
     {
         // todo call function that: moveOutTarget = false; stay to "speak" for few seconds and then moveout = true;
-        SpeakWithBeachWalker();
-        healthBar.OnStopDownloadHealth();
-        OnBeachWalkerClicked?.Invoke();
+        if(isArriveBeachTargetPosition)
+        {
+            SpeakWithBeachWalker();
+            healthBar.OnStopDownloadHealth();
+            OnBeachWalkerClicked?.Invoke();
+        }
     }
 
     private void MoveCharacterTowards(Transform target)
