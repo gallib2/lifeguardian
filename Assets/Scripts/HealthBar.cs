@@ -6,17 +6,31 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public static event Action OnLifeOver;
+    //public static event Action OnLifeOver;
 
     public float initialHealth;
-    public int timeTo = 5;
     public Slider lifeSlider;
     public Transform target;
-    public GameObject wholeObjectToDestroy;
+    public float offsetYSliderPosition = 0.5f;
+    //public GameObject wholeObjectToDestroy;
 
     private bool toStartDwonloadHelth;
     private bool toStopDwonloadHelth;
     private TimerHelper timer;
+
+    public float InitialHealth
+    {
+        get
+        {
+            return initialHealth;
+        }
+        set
+        {
+            initialHealth = value; 
+        }
+    }
+
+
 
 
     // Start is called before the first frame update
@@ -24,28 +38,22 @@ public class HealthBar : MonoBehaviour
     {
         timer = new TimerHelper();
         lifeSlider = GetComponent<Slider>();
-        lifeSlider.maxValue = initialHealth;
+
+        lifeSlider.maxValue = InitialHealth;
     }
 
     void Update()
     {
-        lifeSlider.transform.position = new Vector3(target.position.x, target.position.y + 0.5f, lifeSlider.transform.position.z);
+        lifeSlider.transform.position = new Vector3(target.position.x, target.position.y + offsetYSliderPosition, lifeSlider.transform.position.z);
         //lifeSlider.transform.position = new Vector3(target.position.x, lifeSlider.transform.position.y, lifeSlider.transform.position.z);
 
         if(toStartDwonloadHelth && (int)timer.Get() > 0)
         {
-            lifeSlider.value = initialHealth - (int)timer.Get();
-            if(lifeSlider.value <= 0)
-            {
-                OnLifeOver?.Invoke();
-                Destroy(wholeObjectToDestroy);
-                //character.OnCharcterDead();
-                //Destroy(gameObject);
-            }
+            lifeSlider.value = InitialHealth - (int)timer.Get();
         }
         else if(toStopDwonloadHelth)
         {
-            lifeSlider.value = initialHealth;
+            lifeSlider.value = InitialHealth;
             //StopDownloadHelth();
         }
     }

@@ -5,136 +5,110 @@ using UnityEngine;
 public class SpawnCharacters : MonoBehaviour
 {
     public GameObject characterPrefub;
-    public List<CharacterSettings> characters;
-    public float speed;
+    public List<GameObject> characters;
 
     public List<int> timesInTheWater;
     public List<int> timesOutsideTheWater;
     public List<Vector3> positions;
-    public bool ArrivedWaterPosition { get; set; }
-    public bool ArrivedOutsidePosition { get; set; }
+    public List<Vector3> dangerTargets;
 
     public int maxPeopleInTheWater;
     private int howManyInTheWater;
 
-    private bool continueCheckTimeToExit = true;
-    private bool continueCheckTimeToEnter = true;
+    public int MAX_NumberOfCharacters;
+    private int currentNumberOfCharacters;
+    private bool toCreateCharacters;
 
-    private TimerHelper timer;
+
+    //private TimerHelper timer;
     private Vector3 lowerLeftPosition = new Vector3(-3f, -5f, 0);
-    private Vector3 lowerRightPosition = new Vector3(2.5f, -5f, 0);
+    private Vector3 lowerRightPosition = new Vector3(0.6f, -5f, 0);
+    private Vector3 defaultStartPosition = new Vector3(-3f, -5f, 0);
+
+    private void OnEnable()
+    {
+        KidPackController.OnLifeOver += OnCharacterDead;
+    }
+
+    private void OnDisable()
+    {
+        KidPackController.OnLifeOver -= OnCharacterDead;
+    }
 
     void Start()
     {
-        timer = new TimerHelper();
+        // -1.3
+        // -2.7
+
+        MAX_NumberOfCharacters = 2;
+        CreateCharacters();
+        //int arrSize = timesInTheWater.Count;
+        //characters = new List<GameObject>(arrSize);
+
+        ////Instantiate(characterPrefub, transform);
+        //for (int i = 0; i < arrSize; i++)
+        //{
+        //    float x_startPosition = Random.Range(lowerLeftPosition.x, lowerRightPosition.x);
+        //    defaultStartPosition.x = x_startPosition;
+        //    GameObject chararcter = Instantiate(characterPrefub,lowerLeftPosition, Quaternion.identity ,transform);
+        //    KidPackController kidPackController = chararcter.GetComponent<KidPackController>();
+        //    chararcter.transform.position = defaultStartPosition;
+        //    kidPackController.InitPosition = defaultStartPosition;
+        //    kidPackController.TargetPosition = positions[i];
+        //    kidPackController.TimeInTheWater = timesInTheWater[i];
+        //    kidPackController.TimeInOutsideWater = timesOutsideTheWater[i];
+        //    kidPackController.DangerTarget = dangerTargets[i];
+
+        //    // new Vector3(2f, 0, 0)
+
+        //    //CharacterSettings characterSettings = new CharacterSettings(timeInTheWater, timeInOutsideWater, position, lowerLeftPosition, chararcter);
+        //    //characters.Add(chararcter);
+        //}
+    }
+
+    private void Update()
+    {
+
+    }
+
+    private void OnCharacterDead()
+    {
+        currentNumberOfCharacters--;
+        Debug.Log("OnCharacterDead" + currentNumberOfCharacters);
+
+        if (currentNumberOfCharacters == 0)
+        {
+            Debug.Log("inside if");
+            CreateCharacters();
+        }
+
+    }
+
+    private void CreateCharacters()
+    {
         int arrSize = timesInTheWater.Count;
-        characters = new List<CharacterSettings>(arrSize);
-        //Instantiate(characterPrefub, transform);
+        //characters = new List<GameObject>(arrSize);
+        Debug.Log("CreateCharacters");
+
         for (int i = 0; i < arrSize; i++)
         {
-            int timeInTheWater = timesInTheWater[i];
-            int timeInOutsideWater = timesOutsideTheWater[i];
-            Vector3 position = positions[i];
-            GameObject chararcter = Instantiate(characterPrefub,lowerLeftPosition, Quaternion.identity ,transform);
-            CharacterSettings characterSettings = new CharacterSettings(timeInTheWater, timeInOutsideWater, position, lowerLeftPosition, chararcter);
-            characters.Add(characterSettings);
+            currentNumberOfCharacters++;
+            float x_startPosition = Random.Range(lowerLeftPosition.x, lowerRightPosition.x);
+            defaultStartPosition.x = x_startPosition;
+            GameObject chararcter = Instantiate(characterPrefub, lowerLeftPosition, Quaternion.identity, transform);
+            KidPackController kidPackController = chararcter.GetComponent<KidPackController>();
+            chararcter.transform.position = defaultStartPosition;
+            kidPackController.InitPosition = defaultStartPosition;
+            kidPackController.TargetPosition = positions[i];
+            kidPackController.TimeInTheWater = timesInTheWater[i];
+            kidPackController.TimeInOutsideWater = timesOutsideTheWater[i];
+            kidPackController.DangerTarget = dangerTargets[i];
+
+            // new Vector3(2f, 0, 0)
+
+            //CharacterSettings characterSettings = new CharacterSettings(timeInTheWater, timeInOutsideWater, position, lowerLeftPosition, chararcter);
+            //characters.Add(chararcter);
         }
     }
 
-    void Update()
-    {
-        for(int i = 0; i < characters.Count; i++)
-        {
-            bool needToEnterWater = continueCheckTimeToEnter && (int)timer.Get() % characters[i].timeInOutsideWater == 0;
-
-            if (!characters[i].isInTheWater)
-            {
-                bool canEnterWater = (howManyInTheWater < maxPeopleInTheWater) && (!continueCheckTimeToEnter || needToEnterWater);
-
-                if (canEnterWater)
-                {
-                    // Enter the water
-                    Vector3 target = characters[i].position;
-                    continueCheckTimeToEnter = false;
-                    ArrivedWaterPosition = MoveObject(target, characters[i]);
-
-                    if (ArrivedWaterPosition)
-                    {
-                        howManyInTheWater++;
-                        continueCheckTimeToExit = true;
-                    }
-                }
-
-            }
-            else
-            {
-                bool needToExitWater = continueCheckTimeToExit && (int)timer.Get() % characters[i].timeInTheWater == 0;
-
-                if (!continueCheckTimeToExit || needToExitWater)
-                {
-                    // Exit form water
-                    continueCheckTimeToExit = false;
-                    float step = speed * Time.deltaTime;
-                    Vector3 target = characters[i].initPosition;
-
-                    ArrivedOutsidePosition = MoveObject(target, characters[i]);
-
-                    if (ArrivedOutsidePosition)
-                    {
-                       
-                        howManyInTheWater--;
-                        continueCheckTimeToEnter = true;
-                    }
-                }
-            }
-        }
-    }
-
-    public bool MoveObject(Vector3 target, CharacterSettings character)
-    {
-        float step = speed * Time.deltaTime;
-        bool arrivePosition = false;
-        ArrivedOutsidePosition = false;
-        ArrivedWaterPosition = false;
-
-        if (character.characterPrefub)
-        {
-            character.characterPrefub.transform.position = Vector2.MoveTowards(character.characterPrefub.transform.position, target, step);
-            character.characterPrefub.GetComponentInChildren<CharacterMovement>().ArrivedPatrolPosition = false;
-            arrivePosition = character.characterPrefub.transform.position == target;
-
-            if (arrivePosition)
-            {
-                character.isInTheWater = !character.isInTheWater;
-                character.characterPrefub.GetComponentInChildren<CharacterMovement>().ArrivedPatrolPosition = true;
-            }
-
-            return arrivePosition;
-        }
-
-        return arrivePosition;
-    }
-}
-
-public class CharacterSettings 
-{
-    public int timeInTheWater;
-    public int timeInOutsideWater;
-    public bool isInTheWater;
-    public Vector3 position;
-    public Vector3 initPosition;
-    public GameObject characterPrefub;
-
-    public CharacterSettings(int _timeInTheWater, int _timeInOutsideWater, Vector3 _position, Vector3 _initPosition , GameObject _characterPrefub)
-    {
-        characterPrefub = _characterPrefub;
-        timeInTheWater = _timeInTheWater;
-        timeInOutsideWater = _timeInOutsideWater;
-        position = _position;
-        initPosition = _initPosition;
-        isInTheWater = false;
-        
-        characterPrefub.transform.position = _initPosition;
-        characterPrefub.GetComponentInChildren<CharacterMovement>().InitPosition = position;
-    }
 }

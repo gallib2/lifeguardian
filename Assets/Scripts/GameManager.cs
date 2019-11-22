@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     public Slider lifeSlider;
     public Slider funSlider;
     public int scoreToDownloadPerTime;
+    public int life_scoreToUploadPerTime;
+    public int fun_scoreToUploadPerTime;
     public int speed = 3;
     public int maxLifeValue = 100;
+    public int maxFunValue = 100;
 
     private Vector3 seaTarget;
     private Vector3 beachTarget;
@@ -21,13 +24,15 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SwipeDetector.OnSwipe += SwipeDetected;
-        HealthBar.OnLifeOver += DownloadScore;
+        KidPackController.OnLifeOver += DownloadScore;
+        BeachWalker.OnBeachWalkerClicked += UploadFunScore;
     }
 
     private void OnDisable()
     {
         SwipeDetector.OnSwipe -= SwipeDetected;
-        HealthBar.OnLifeOver -= DownloadScore;
+        KidPackController.OnLifeOver -= DownloadScore;
+        BeachWalker.OnBeachWalkerClicked -= UploadFunScore;
     }
 
     private void Start()
@@ -36,6 +41,8 @@ public class GameManager : MonoBehaviour
         beachTarget = new Vector3(5.65f, mainCamera.transform.position.y, mainCamera.transform.position.z);
         seaTarget = new Vector3(0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
         scoreToDownloadPerTime = 10;
+        fun_scoreToUploadPerTime = 10;
+        life_scoreToUploadPerTime = 10;
         lifeSlider.maxValue = maxLifeValue;
     }
 
@@ -44,6 +51,13 @@ public class GameManager : MonoBehaviour
         if(lifeSlider.value <= 0)
         {
             Debug.Log("GAME OVER! ");
+        }
+
+        bool isFunSliderFull = funSlider.value >= funSlider.maxValue;
+        if (isFunSliderFull)
+        {
+            lifeSlider.value += life_scoreToUploadPerTime;
+            funSlider.value = 0;
         }
 
         if(shouldMoveCamera)
@@ -86,6 +100,11 @@ public class GameManager : MonoBehaviour
     private void DownloadScore()
     {
         lifeSlider.value -= scoreToDownloadPerTime;
+    }
+
+    private void UploadFunScore()
+    {
+        funSlider.value += fun_scoreToUploadPerTime;
     }
 
 

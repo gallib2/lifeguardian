@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ItemType
 {
     Character,
-    Flag
+    Flag,
+    Washer
 }
 
 public abstract class ItemObject : ScriptableObject
@@ -15,6 +16,7 @@ public abstract class ItemObject : ScriptableObject
     public int timeToFinishWork;
     public GameObject allowedZone;
     public string itemName;
+    public SpriteRenderer spriteRenderer;
 
     [TextArea(15, 20)]
     public string description;
