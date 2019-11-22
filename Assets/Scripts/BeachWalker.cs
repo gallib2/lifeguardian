@@ -9,21 +9,37 @@ public class BeachWalker : MonoBehaviour
     public static event Action OnBeachWalkerClicked;
     public static event Action OnBeachWalkerOut;
 
+    public static event Action OnLifeOver;
+
+    public CharacterType characterType;
+
     private AudioSource audioSource;
     public List<AudioClip> audioClips;
 
-    public Transform targetOnBeach;
-    public Transform targetOut;
     public float speed = 0.3f;
-    public int timeToStayOnBeachTarget;
     public HealthBar healthBar;
 
     private TimerHelper timer;
+    private bool isArriveClickPosition;
+
+    /// <summary>
+    /// /Start with params
+    /// </summary>
+    public Transform targetOnBeach;
+    public Transform targetOut;
+    private Transform currentTarget;
+
+    public int timeToStayOnBeachTarget;
     private bool toResetTimer;
     private bool moveToBeachTarget;
     private bool moveOutTarget;
-
     private bool isArriveBeachTargetPosition;
+    // END
+
+    /// <summary>
+    /// Sea - deep water params
+    /// </summary>
+    public Transform targetSecondOnWater;
 
     private void Awake()
     {
@@ -37,16 +53,77 @@ public class BeachWalker : MonoBehaviour
         toResetTimer = true;
         timer = new TimerHelper();
         audioSource = GetComponent<AudioSource>();
+        currentTarget = targetOnBeach;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(moveToBeachTarget)
+        if(characterType == CharacterType.beach_start_with)
+        {
+            BeachWalkers();
+        }
+
+        if(characterType == CharacterType.Sea_deep_water)
+        {
+            SeaDeepWaterChar();
+        }
+    }
+
+    private void SeaDeepWaterChar()
+    {
+        if (healthBar.CurrentSliderValue <= 0)
+        {
+            OnLifeOver?.Invoke();
+            //OnBeachWalkerOut?.Invoke();
+            //Destroy(gameObject);
+        }
+
+        if (moveToBeachTarget)
+        {
+            MoveCharacterTowards(currentTarget);
+            isArriveBeachTargetPosition = transform.position == currentTarget.position;
+            if (isArriveBeachTargetPosition)
+            {
+                currentTarget = currentTarget == targetOnBeach ? targetSecondOnWater : targetOnBeach;
+            }
+
+            moveOutTarget = (int)timer.Get() > 0 && (int)timer.Get() % timeToStayOnBeachTarget == 0;
+        }
+
+        if (moveOutTarget)
+        {
+            moveToBeachTarget = false;
+            MoveCharacterTowards(targetOut);
+            isArriveBeachTargetPosition = false;
+
+            if (transform.position == targetOut.position)
+            {
+                moveOutTarget = false;
+                healthBar.OnStartDownloadHealth();
+                isArriveClickPosition = true;
+            }
+        }
+    }
+
+    private void SeaDeepWaterCharacterClicked()
+    {
+        // todo check if the life slider > 0
+        if(healthBar.CurrentSliderValue > 0)
+        {
+            Debug.Log("arrive SeaDeepWaterCharacterClicked");
+            moveToBeachTarget = true;
+            timer.Reset();
+        }
+    }
+
+    private void BeachWalkers()
+    {
+        if (moveToBeachTarget)
         {
             MoveCharacterTowards(targetOnBeach);
-            isArriveBeachTargetPosition = transform.position == targetOnBeach.position;
-            if (isArriveBeachTargetPosition)
+            isArriveClickPosition = transform.position == targetOnBeach.position;
+            if (isArriveClickPosition)
             {
                 if (toResetTimer)
                 {
@@ -59,11 +136,11 @@ public class BeachWalker : MonoBehaviour
             }
         }
 
-        if(moveOutTarget)
+        if (moveOutTarget)
         {
             moveToBeachTarget = false;
             MoveCharacterTowards(targetOut);
-            isArriveBeachTargetPosition = false;
+            isArriveClickPosition = false;
 
             if (transform.position == targetOut.position)
             {
@@ -71,6 +148,8 @@ public class BeachWalker : MonoBehaviour
             }
         }
     }
+
+
 
     private void SpeakWithBeachWalker()
     {
@@ -85,11 +164,16 @@ public class BeachWalker : MonoBehaviour
     private void OnMouseDown()
     {
         // todo call function that: moveOutTarget = false; stay to "speak" for few seconds and then moveout = true;
-        if(isArriveBeachTargetPosition)
+        if(isArriveClickPosition)
         {
             SpeakWithBeachWalker();
             healthBar.OnStopDownloadHealth();
             OnBeachWalkerClicked?.Invoke();
+
+            if(characterType == CharacterType.Sea_deep_water)
+            {
+                SeaDeepWaterCharacterClicked();
+            }
         }
     }
 
@@ -99,3 +183,12 @@ public class BeachWalker : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target.position, step);
     }
 }
+
+public enum CharacterType
+{
+    Sea_shallow_water,
+    Sea_deep_water,
+    Sea_rider,
+    beach_start_with
+}
+

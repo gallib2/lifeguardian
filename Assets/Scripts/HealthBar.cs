@@ -30,7 +30,17 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-
+    public float CurrentSliderValue
+    {
+        get
+        {
+            return lifeSlider.value;
+        }
+        set
+        {
+            lifeSlider.value = value;
+        }
+    }
 
 
     // Start is called before the first frame update
@@ -49,6 +59,8 @@ public class HealthBar : MonoBehaviour
 
         if(toStartDwonloadHelth && (int)timer.Get() > 0)
         {
+            //Debug.Log("helth bat - InitialHealth " + InitialHealth);
+
             lifeSlider.value = InitialHealth - (int)timer.Get();
         }
         else if(toStopDwonloadHelth)
