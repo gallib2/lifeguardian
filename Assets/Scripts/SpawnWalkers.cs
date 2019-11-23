@@ -17,13 +17,13 @@ public class SpawnWalkers : MonoBehaviour
     private void OnEnable()
     {
         BeachWalker.OnBeachWalkerOut += BeachWalkerOut;
-        BeachWalker.OnLifeOver += LifeOver;
+        //BeachWalker.OnLifeOver += LifeOver;
     }
 
     private void OnDisable()
     {
         BeachWalker.OnBeachWalkerOut -= BeachWalkerOut;
-        BeachWalker.OnLifeOver -= LifeOver;
+        //BeachWalker.OnLifeOver -= LifeOver;
     }
 
     // Start is called before the first frame update
@@ -64,9 +64,9 @@ public class SpawnWalkers : MonoBehaviour
         }
     }
 
-    private void LifeOver()
+    public void LifeOver()
     {
-        if (characterType == CharacterType.Sea_deep_water)
+        if (characterType == CharacterType.Sea_deep_water || characterType == CharacterType.Sea_shallow_water)
         {
             CreateCharacter();
         }

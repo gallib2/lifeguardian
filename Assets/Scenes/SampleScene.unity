@@ -2365,6 +2365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 0
+  maxHealth: 0
   audioClips:
   - {fileID: 8300000, guid: 212b1770607ea4dfaa5298f36cbef679, type: 3}
   speed: 0.5
@@ -2373,6 +2374,8 @@ MonoBehaviour:
   targetOut: {fileID: 978892596}
   timeToStayOnBeachTarget: 5
   targetSecondOnWater: {fileID: 0}
+  sprite: {fileID: 0}
+  spriteScale: {x: 0, y: 0, z: 0}
 --- !u!61 &586218361
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3197,6 +3200,8 @@ Transform:
   - {fileID: 1408349554}
   - {fileID: 1518797876}
   - {fileID: 933979122}
+  - {fileID: 1688557825}
+  - {fileID: 1528096658}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5897,13 +5902,62 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518797875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.18, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5856760578880998530}
   m_Father: {fileID: 804956224}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1528096657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1528096658}
+  - component: {fileID: 1528096659}
+  m_Layer: 0
+  m_Name: Walkers Sea (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1528096658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528096657}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 804956224}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1528096659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528096657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4633ec43ec23c468b9cc6d4415a4460d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 2
+  prefub_walker: {fileID: 525964098069336341, guid: 128b6b865691b4a6d89832ccbfc99048,
+    type: 3}
+  currentWalker: {fileID: 0}
+  timeBetweenSpawn: 2
+  MAX_WalkersOnAction: 1
 --- !u!1 &1548098974
 GameObject:
   m_ObjectHideFlags: 0
@@ -6661,6 +6715,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1688557824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1688557825}
+  - component: {fileID: 1688557826}
+  m_Layer: 0
+  m_Name: Walkers Sea (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1688557825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688557824}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 804956224}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1688557826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688557824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4633ec43ec23c468b9cc6d4415a4460d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: 0
+  prefub_walker: {fileID: 7258393690046208356, guid: f156bd9e201b640418f1eaf8a07b7665,
+    type: 3}
+  currentWalker: {fileID: 0}
+  timeBetweenSpawn: 2
+  MAX_WalkersOnAction: 1
 --- !u!1 &1727800058
 GameObject:
   m_ObjectHideFlags: 0

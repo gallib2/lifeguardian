@@ -433,7 +433,7 @@ MonoBehaviour:
   initialHealth: 10
   lifeSlider: {fileID: 0}
   target: {fileID: 1935452666050551195}
-  offsetYSliderPosition: 1.2
+  offsetYSliderPosition: 0.6
 --- !u!1 &1935452665642144223
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 1
+  maxHealth: 10
   audioClips:
   - {fileID: 8300000, guid: a391926a0af374bdc86c154bce96abd4, type: 3}
   - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
@@ -697,6 +698,8 @@ MonoBehaviour:
   targetOut: {fileID: 1935452665642144216}
   timeToStayOnBeachTarget: 15
   targetSecondOnWater: {fileID: 7371940284660381025}
+  sprite: {fileID: 0}
+  spriteScale: {x: 0, y: 0, z: 0}
 --- !u!61 &1935452666050551189
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -710,7 +713,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.008767754, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -721,7 +724,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.03, y: 1.93}
+  m_Size: {x: 1.3047233, y: 1.93}
   m_EdgeRadius: 0
 --- !u!82 &1935452666050551190
 AudioSource:
