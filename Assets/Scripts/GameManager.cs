@@ -24,14 +24,16 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SwipeDetector.OnSwipe += SwipeDetected;
-        KidPackController.OnLifeOver += DownloadScore;
+        //KidPackController.OnLifeOver += DownloadScore;
+        BeachWalker.OnLifeOver += DownloadScore;
         BeachWalker.OnBeachWalkerClicked += UploadFunScore;
     }
 
     private void OnDisable()
     {
         SwipeDetector.OnSwipe -= SwipeDetected;
-        KidPackController.OnLifeOver -= DownloadScore;
+        //KidPackController.OnLifeOver -= DownloadScore;
+        BeachWalker.OnLifeOver -= DownloadScore;
         BeachWalker.OnBeachWalkerClicked -= UploadFunScore;
     }
 

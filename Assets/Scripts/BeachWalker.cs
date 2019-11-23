@@ -49,6 +49,9 @@ public class BeachWalker : MonoBehaviour
     private bool isStandingOnSurf = true;
     private bool isAlreadySwitchSprite = false;
 
+    // ball params
+    public Transform target1;
+
     private void Awake()
     {
         healthBar.InitialHealth = maxHealth;
@@ -68,7 +71,7 @@ public class BeachWalker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(characterType == CharacterType.beach_start_with)
+        if (characterType == CharacterType.beach_start_with)
         {
             BeachWalkers();
         }
@@ -78,6 +81,59 @@ public class BeachWalker : MonoBehaviour
         if (isInSea)
         {
             SeaDeepWaterChar();
+        }
+
+        if (characterType == CharacterType.beach_Ball)
+        {
+            BeachBallMovement();
+        }
+    }
+
+    private void BeachBallMovement()
+    {
+        if(healthBar.CurrentSliderValue <= 0)
+        {
+            // drop the ball down..
+            MoveCharacterTowards(target1);
+            if(transform.position == target1.position)
+            {
+                // means we finish the path.
+                GetComponentInParent<SpawnWalkers>().BallIsOut();
+            }
+        }
+
+        if (moveToBeachTarget)
+        {
+            MoveCharacterTowards(currentTarget);
+            isArriveBeachTargetPosition = transform.position == currentTarget.position;
+            if (isArriveBeachTargetPosition)
+            {
+                if (currentTarget == targetOnBeach)
+                {
+                    currentTarget = targetSecondOnWater;
+                }
+                else
+                {
+                    currentTarget = targetOnBeach;
+
+                    moveOutTarget = (int)timer.Get() > 0 && (int)timer.Get() % timeToStayOnBeachTarget == 0;
+                }
+            }
+
+        }
+
+        if (moveOutTarget)
+        {
+            moveToBeachTarget = false;
+            MoveCharacterTowards(targetOut);
+            isArriveBeachTargetPosition = false;
+
+            if (transform.position == targetOut.position)
+            {
+                moveOutTarget = false;
+                healthBar.OnStartDownloadHealth();
+                isArriveClickPosition = true;
+            }
         }
     }
 
@@ -98,19 +154,19 @@ public class BeachWalker : MonoBehaviour
             {
                 //currentTarget = currentTarget == targetOnBeach ? targetSecondOnWater : targetOnBeach;
 
-                if(currentTarget == targetOnBeach)
+                if (currentTarget == targetOnBeach)
                 {
                     currentTarget = targetSecondOnWater;
-                    if(characterType == CharacterType.Sea_deep_water)
+                    if (characterType == CharacterType.Sea_deep_water)
                     {
                         transform.eulerAngles = new Vector3(0, 0, 0);
                     }
-                    if(sprite != null && isStandingOnSurf)
+                    if (sprite != null && isStandingOnSurf)
                     {
                         //isStandingOnSurf = false;
                         SwitchCharacterSprite();
                     }
-                } 
+                }
                 else
                 {
                     currentTarget = targetOnBeach;
@@ -167,10 +223,8 @@ public class BeachWalker : MonoBehaviour
 
     private void SeaDeepWaterCharacterClicked()
     {
-        // todo check if the life slider > 0
-        if(healthBar.CurrentSliderValue > 0)
+        if (healthBar.CurrentSliderValue > 0)
         {
-            Debug.Log("arrive SeaDeepWaterCharacterClicked");
             moveToBeachTarget = true;
             timer.Reset();
         }
@@ -182,6 +236,12 @@ public class BeachWalker : MonoBehaviour
         currentTarget = targetSecondOnWater;
         //isStandingOnSurf = false;
         SwitchCharacterSprite();
+    }
+
+    private void BeachBallClicked()
+    {
+        currentTarget = targetSecondOnWater;
+        SeaDeepWaterCharacterClicked();
     }
 
     private void BeachWalkers()
@@ -246,6 +306,11 @@ public class BeachWalker : MonoBehaviour
             {
                 SeaRiderClicked();
             }
+
+            if(characterType == CharacterType.beach_Ball)
+            {
+                BeachBallClicked();
+            }
         }
     }
 
@@ -261,6 +326,7 @@ public enum CharacterType
     Sea_shallow_water,
     Sea_deep_water,
     Sea_rider,
-    beach_start_with
+    beach_start_with,
+    beach_Ball
 }
 

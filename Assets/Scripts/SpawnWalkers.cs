@@ -66,7 +66,15 @@ public class SpawnWalkers : MonoBehaviour
 
     public void LifeOver()
     {
-        if (characterType == CharacterType.Sea_deep_water || characterType == CharacterType.Sea_shallow_water)
+        if (characterType == CharacterType.Sea_deep_water || characterType == CharacterType.Sea_shallow_water || characterType == CharacterType.Sea_rider)
+        {
+            CreateCharacter();
+        }
+    }
+
+    public void BallIsOut()
+    {
+        if (characterType == CharacterType.beach_Ball)
         {
             CreateCharacter();
         }
