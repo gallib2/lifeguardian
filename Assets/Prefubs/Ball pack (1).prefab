@@ -293,7 +293,7 @@ MonoBehaviour:
   healthBar: {fileID: 5711682967788868310}
   targetOnBeach: {fileID: 5711682967662883070}
   targetOut: {fileID: 5711682967841785129}
-  timeToStayOnBeachTarget: 10
+  timeToStayOnBeachTarget: 17
   targetSecondOnWater: {fileID: 3733913129003245968}
   sprite: {fileID: 0}
   spriteScale: {x: 0, y: 0, z: 0}

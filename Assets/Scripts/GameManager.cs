@@ -11,15 +11,18 @@ public class GameManager : MonoBehaviour
     public int scoreToDownloadPerTime;
     public int life_scoreToUploadPerTime;
     public int fun_scoreToUploadPerTime;
+    public int fun_ScoreBonusLevel;
     public int speed = 3;
     public int maxLifeValue = 100;
     public int maxFunValue = 100;
 
     private Vector3 seaTarget;
     private Vector3 beachTarget;
+    private Vector3 findEffiTarget;
     private bool shouldMoveCamera;
     private bool moveToSea;
     private bool moveToBeach;
+    private bool moveToFindEffi;
 
     private void OnEnable()
     {
@@ -27,6 +30,8 @@ public class GameManager : MonoBehaviour
         //KidPackController.OnLifeOver += DownloadScore;
         BeachWalker.OnLifeOver += DownloadScore;
         BeachWalker.OnBeachWalkerClicked += UploadFunScore;
+        BeachWalker.OnLostKidClicked += LostKidClicked;
+        LostKid.OnLostKidFound += LostKidFound;
     }
 
     private void OnDisable()
@@ -35,16 +40,19 @@ public class GameManager : MonoBehaviour
         //KidPackController.OnLifeOver -= DownloadScore;
         BeachWalker.OnLifeOver -= DownloadScore;
         BeachWalker.OnBeachWalkerClicked -= UploadFunScore;
+        BeachWalker.OnLostKidClicked -= LostKidClicked;
+        LostKid.OnLostKidFound -= LostKidFound;
     }
 
     private void Start()
     {
         moveToSea = true;
-        beachTarget = new Vector3(5.65f, mainCamera.transform.position.y, mainCamera.transform.position.z);
-        seaTarget = new Vector3(0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        beachTarget = new Vector3(11.28f, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        seaTarget = new Vector3(-0.09f, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        findEffiTarget = new Vector3(11.28f, 11.0f, mainCamera.transform.position.z);
         scoreToDownloadPerTime = 10;
         fun_scoreToUploadPerTime = 10;
-        life_scoreToUploadPerTime = 10;
+        life_scoreToUploadPerTime = 20;
         lifeSlider.maxValue = maxLifeValue;
     }
 
@@ -66,19 +74,44 @@ public class GameManager : MonoBehaviour
         {
             float step = speed * Time.deltaTime;
 
-            if (moveToSea)
+            if(moveToFindEffi)
             {
-                mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, seaTarget, step);
-                shouldMoveCamera = mainCamera.transform.position != seaTarget;
+                mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, findEffiTarget, step);
+                shouldMoveCamera = mainCamera.transform.position != findEffiTarget;
             }
-            else if (moveToBeach)
+            else
             {
-                //5.65
-                mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, beachTarget, step);
-                shouldMoveCamera = mainCamera.transform.position != beachTarget;
+                if (moveToSea)
+                {
+                    mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, seaTarget, step);
+                    shouldMoveCamera = mainCamera.transform.position != seaTarget;
+                }
+                else if (moveToBeach)
+                {
+                    //5.65
+                    mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, beachTarget, step);
+                    shouldMoveCamera = mainCamera.transform.position != beachTarget;
+                }
             }
         }
 
+    }
+
+    private void LostKidClicked()
+    {
+        moveToFindEffi = true;
+        shouldMoveCamera = true;
+        moveToBeach = false;
+        moveToSea = false;
+    }
+
+    private void LostKidFound()
+    {
+        moveToFindEffi = false;
+        shouldMoveCamera = true;
+        moveToBeach = true;
+
+        funSlider.value += fun_ScoreBonusLevel;
     }
 
     private void SwipeDetected(SwipeData swipeData)

@@ -663,7 +663,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 89416b69d0cd544efb6f0176a07280fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -700,6 +700,7 @@ MonoBehaviour:
   targetSecondOnWater: {fileID: 7371940284660381025}
   sprite: {fileID: 0}
   spriteScale: {x: 0, y: 0, z: 0}
+  target1: {fileID: 0}
 --- !u!61 &1935452666050551189
 BoxCollider2D:
   m_ObjectHideFlags: 0

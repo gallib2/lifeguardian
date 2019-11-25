@@ -79,4 +79,12 @@ public class SpawnWalkers : MonoBehaviour
             CreateCharacter();
         }
     }
+
+    public void LostKidOut()
+    {
+        if (characterType == CharacterType.Beach_Lost_Kid)
+        {
+            CreateCharacter();
+        }
+    }
 }

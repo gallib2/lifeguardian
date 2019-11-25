@@ -9,6 +9,7 @@ public class BeachWalker : MonoBehaviour
     public static event Action OnBeachWalkerClicked;
     public static event Action OnBeachWalkerOut;
     public static event Action OnLifeOver;
+    public static event Action OnLostKidClicked;
 
     public CharacterType characterType;
     public int maxHealth;
@@ -65,7 +66,7 @@ public class BeachWalker : MonoBehaviour
         timer = new TimerHelper();
         audioSource = GetComponent<AudioSource>();
         currentTarget = targetOnBeach;
-        spriteScale = new Vector3(0.3f, 0.3f, 0.3f);
+        spriteScale = transform.localScale; // new Vector3(0.3f, 0.3f, 0.3f);
     }
 
     // Update is called once per frame
@@ -74,6 +75,11 @@ public class BeachWalker : MonoBehaviour
         if (characterType == CharacterType.beach_start_with)
         {
             BeachWalkers();
+        }
+
+        if (characterType == CharacterType.Beach_Lost_Kid)
+        {
+            BeachLostKid();
         }
 
         bool isInSea = characterType == CharacterType.Sea_deep_water || characterType == CharacterType.Sea_shallow_water || characterType == CharacterType.Sea_rider;
@@ -141,6 +147,7 @@ public class BeachWalker : MonoBehaviour
     {
         if (healthBar.CurrentSliderValue <= 0)
         {
+            isArriveClickPosition = false;
             OnLifeOver?.Invoke();
             GetComponentInParent<SpawnWalkers>().LifeOver();
         }
@@ -244,6 +251,11 @@ public class BeachWalker : MonoBehaviour
         SeaDeepWaterCharacterClicked();
     }
 
+    private void BeachLostKidClicked()
+    {
+        OnLostKidClicked?.Invoke();
+    }
+
     private void BeachWalkers()
     {
         if (moveToBeachTarget)
@@ -276,7 +288,39 @@ public class BeachWalker : MonoBehaviour
         }
     }
 
+    private void BeachLostKid()
+    {
+        if (moveToBeachTarget)
+        {
+            MoveCharacterTowards(targetOnBeach);
+            isArriveClickPosition = transform.position == targetOnBeach.position;
+            if (isArriveClickPosition)
+            {
+                if (toResetTimer)
+                {
+                    healthBar.OnStartDownloadHealth();
+                    timer.Reset();
+                    toResetTimer = false;
+                }
 
+                //moveOutTarget = (int)timer.Get() > 0 && (int)timer.Get() % timeToStayOnBeachTarget == 0;
+                moveOutTarget = true;
+            }
+        }
+
+        if (moveOutTarget)
+        {
+            moveToBeachTarget = false;
+            MoveCharacterTowards(targetOut);
+            isArriveClickPosition = false;
+
+            if (transform.position == targetOut.position)
+            {
+                //OnBeachWalkerOut?.Invoke();
+                GetComponentInParent<SpawnWalkers>().LostKidOut();
+            }
+        }
+    }
 
     private void SpeakWithBeachWalker()
     {
@@ -312,6 +356,11 @@ public class BeachWalker : MonoBehaviour
                 BeachBallClicked();
             }
         }
+
+        if (characterType == CharacterType.Beach_Lost_Kid)
+        {
+            BeachLostKidClicked();
+        }
     }
 
     private void MoveCharacterTowards(Transform target)
@@ -327,6 +376,7 @@ public enum CharacterType
     Sea_deep_water,
     Sea_rider,
     beach_start_with,
-    beach_Ball
+    beach_Ball,
+    Beach_Lost_Kid
 }
 
