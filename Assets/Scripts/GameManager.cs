@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         BeachWalker.OnBeachWalkerClicked += UploadFunScore;
         BeachWalker.OnLostKidClicked += LostKidClicked;
         LostKid.OnLostKidFound += LostKidFound;
+        EffiManager.OnLostkidOver += LostKidOver;
     }
 
     private void OnDisable()
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         BeachWalker.OnBeachWalkerClicked -= UploadFunScore;
         BeachWalker.OnLostKidClicked -= LostKidClicked;
         LostKid.OnLostKidFound -= LostKidFound;
+        EffiManager.OnLostkidOver -= LostKidOver;
     }
 
     private void Start()
@@ -112,6 +114,15 @@ public class GameManager : MonoBehaviour
         moveToBeach = true;
 
         funSlider.value += fun_ScoreBonusLevel;
+    }
+
+    private void LostKidOver()
+    {
+        moveToFindEffi = false;
+        shouldMoveCamera = true;
+        moveToBeach = true;
+
+        // TODO add losing sounds or somthing like that...
     }
 
     private void SwipeDetected(SwipeData swipeData)

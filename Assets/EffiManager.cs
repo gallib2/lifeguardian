@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class EffiManager : MonoBehaviour
 {
+    public static event Action OnLostkidOver;
+
+    public GameObject lostKid;
     public Text textTimer;
     public int timeToFind;
     public float minXPosition;
@@ -42,16 +45,37 @@ public class EffiManager : MonoBehaviour
         {
             int remainTime = timeToFind - (int)timer.Get();
             textTimer.text = remainTime.ToString();
+
+            if(remainTime == 0)
+            {
+                OnLostkidOver?.Invoke();
+                ResetSettings();
+            }
         }
     }
 
     private void LostKidClicked()
     {
+        float chosenX = UnityEngine.Random.Range(minXPosition, maxXPosition);
+        float chosenY = UnityEngine.Random.Range(minYPosition, maxYPosition);
+        lostKid.transform.position = new Vector3(chosenX, chosenY, 0f);
         toStartTimer = true;
         timer.Reset();
+
+        Debug.Log("chosenX: " + chosenX);
+        Debug.Log("chosenY: " + chosenY);
+        Debug.Log("minXPosition: " + minXPosition);
+        Debug.Log("maxXPosition: " + maxXPosition);
+        Debug.Log("minYPosition: " + minYPosition);
+        Debug.Log("maxYPosition: " + maxYPosition);
     }
 
     private void LostKidFound()
+    {
+        ResetSettings();
+    }
+
+    private void ResetSettings()
     {
         toStartTimer = false;
         textTimer.text = string.Empty;
