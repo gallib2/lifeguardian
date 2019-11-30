@@ -399,7 +399,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: b2a895e93a1384c85829ad6132e9e229, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ea3a61eea29745e0b70dcb5892a5713, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -436,6 +436,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   spriteScale: {x: 0, y: 0, z: 0}
   target1: {fileID: 0}
+  matkaHand: {fileID: 0}
 --- !u!61 &8447156398889609401
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -453,7 +454,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.71, y: 4.65}
+    oldSize: {x: 4.46, y: 7.29}
     newSize: {x: 1.03, y: 1.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

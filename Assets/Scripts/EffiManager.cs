@@ -61,13 +61,6 @@ public class EffiManager : MonoBehaviour
         lostKid.transform.position = new Vector3(chosenX, chosenY, 0f);
         toStartTimer = true;
         timer.Reset();
-
-        Debug.Log("chosenX: " + chosenX);
-        Debug.Log("chosenY: " + chosenY);
-        Debug.Log("minXPosition: " + minXPosition);
-        Debug.Log("maxXPosition: " + maxXPosition);
-        Debug.Log("minYPosition: " + minYPosition);
-        Debug.Log("maxYPosition: " + maxYPosition);
     }
 
     private void LostKidFound()

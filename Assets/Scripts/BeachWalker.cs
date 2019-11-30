@@ -52,6 +52,7 @@ public class BeachWalker : MonoBehaviour
 
     // ball params
     public Transform target1;
+    public MatkaHand matkaHand;
 
     private void Awake()
     {
@@ -67,6 +68,11 @@ public class BeachWalker : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         currentTarget = targetOnBeach;
         spriteScale = transform.localScale; // new Vector3(0.3f, 0.3f, 0.3f);
+
+        //if(characterType == CharacterType.beach_Ball)
+        //{
+        //    audioSource.Play();
+        //}
     }
 
     // Update is called once per frame
@@ -108,6 +114,13 @@ public class BeachWalker : MonoBehaviour
             }
         }
 
+        if(matkaHand.IsArrivedPosition)
+        {
+            currentTarget = targetSecondOnWater;
+            SeaDeepWaterCharacterClicked();
+            audioSource.PlayOneShot(audioClips[0]);
+        }
+
         if (moveToBeachTarget)
         {
             MoveCharacterTowards(currentTarget);
@@ -117,11 +130,12 @@ public class BeachWalker : MonoBehaviour
                 if (currentTarget == targetOnBeach)
                 {
                     currentTarget = targetSecondOnWater;
+                    audioSource.PlayOneShot(audioClips[0]);
                 }
                 else
                 {
                     currentTarget = targetOnBeach;
-
+                    audioSource.PlayOneShot(audioClips[1]);
                     moveOutTarget = (int)timer.Get() > 0 && (int)timer.Get() % timeToStayOnBeachTarget == 0;
                 }
             }
@@ -247,8 +261,9 @@ public class BeachWalker : MonoBehaviour
 
     private void BeachBallClicked()
     {
-        currentTarget = targetSecondOnWater;
-        SeaDeepWaterCharacterClicked();
+        matkaHand.StartMoveHand();
+        //currentTarget = targetSecondOnWater;
+        //SeaDeepWaterCharacterClicked();
     }
 
     private void BeachLostKidClicked()
@@ -337,23 +352,30 @@ public class BeachWalker : MonoBehaviour
         // todo call function that: moveOutTarget = false; stay to "speak" for few seconds and then moveout = true;
         if(isArriveClickPosition)
         {
-            SpeakWithBeachWalker();
+            //SpeakWithBeachWalker();
             healthBar.OnStopDownloadHealth();
             OnBeachWalkerClicked?.Invoke();
 
             if (characterType == CharacterType.Sea_deep_water || characterType == CharacterType.Sea_shallow_water)
             {
+                SpeakWithBeachWalker();
                 SeaDeepWaterCharacterClicked();
             }
 
             if(characterType == CharacterType.Sea_rider)
             {
+                SpeakWithBeachWalker();
                 SeaRiderClicked();
             }
 
             if(characterType == CharacterType.beach_Ball)
             {
                 BeachBallClicked();
+            }
+
+            if(characterType == CharacterType.beach_start_with)
+            {
+                SpeakWithBeachWalker();
             }
         }
 
