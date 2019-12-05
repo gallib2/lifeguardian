@@ -98,7 +98,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c51dea9bbd3134d5da3a8d698f4129d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -197,7 +197,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c51dea9bbd3134d5da3a8d698f4129d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -850,7 +850,7 @@ Transform:
   m_GameObject: {fileID: 7258393690504589692}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.75, y: -0.65, z: 0}
-  m_LocalScale: {x: 0.24888074, y: 0.24888074, z: 0.24888074}
+  m_LocalScale: {x: 0.065, y: 0.065, z: 0.065}
   m_Children:
   - {fileID: 3187504444525462305}
   - {fileID: 3187504444375831040}
@@ -893,8 +893,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 2f1f8777daf98493eb9e39391d730fdb, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300000, guid: de3642b36fc834c539f94a058a83acfe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -930,6 +930,8 @@ MonoBehaviour:
   targetSecondOnWater: {fileID: 1740783961927457156}
   sprite: {fileID: 0}
   spriteScale: {x: 0, y: 0, z: 0}
+  target1: {fileID: 0}
+  matkaHand: {fileID: 0}
 --- !u!61 &7258393690504589680
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -943,18 +945,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.08024144, y: 0.008916378}
+  m_Offset: {x: -0.3513422, y: 0.94338894}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.51, y: 3.91}
+    oldSize: {x: 13.04, y: 16.14}
     newSize: {x: 1.03, y: 1.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.9008312, y: 4.4085417}
+  m_Size: {x: 17.725561, y: 18.475756}
   m_EdgeRadius: 0
 --- !u!82 &7258393690504589683
 AudioSource:

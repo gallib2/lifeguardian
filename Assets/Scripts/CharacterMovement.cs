@@ -66,7 +66,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void OnCharcterDead()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        DestroyImmediate(gameObject);
     }
 
 }

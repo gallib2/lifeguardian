@@ -16,8 +16,14 @@ public class EffiManager : MonoBehaviour
     public float minYPosition;
     public float maxYPosition;
 
+    public AudioClip backgroundAudio;
+    public AudioClip successAudio;
+    public AudioClip failedAudio;
+    private AudioSource audioSource;
+
     private TimerHelper timer;
     private bool toStartTimer;
+    
 
     private void OnEnable()
     {
@@ -36,6 +42,7 @@ public class EffiManager : MonoBehaviour
     {
         timer = new TimerHelper();
         textTimer.text = string.Empty;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,6 +52,19 @@ public class EffiManager : MonoBehaviour
         {
             int remainTime = timeToFind - (int)timer.Get();
             textTimer.text = remainTime.ToString();
+
+            if(remainTime <= 4)
+            {
+                audioSource.volume -= 0.01f;
+            }
+
+            if(remainTime == 3)
+            {
+                audioSource.Stop();
+                audioSource.volume = 1f;
+                audioSource.PlayOneShot(failedAudio);
+
+            }
 
             if(remainTime == 0)
             {
@@ -60,17 +80,21 @@ public class EffiManager : MonoBehaviour
         float chosenY = UnityEngine.Random.Range(minYPosition, maxYPosition);
         lostKid.transform.position = new Vector3(chosenX, chosenY, 0f);
         toStartTimer = true;
+        audioSource.PlayOneShot(backgroundAudio);
         timer.Reset();
     }
 
     private void LostKidFound()
     {
         ResetSettings();
+        audioSource.PlayOneShot(successAudio);
     }
 
     private void ResetSettings()
     {
         toStartTimer = false;
         textTimer.text = string.Empty;
+        audioSource.Stop();
+        audioSource.volume = 1f;
     }
 }
