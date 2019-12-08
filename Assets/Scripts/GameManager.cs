@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public int maxLifeValue = 100;
     public int maxFunValue = 100;
 
-    private Animator anim;
+    //private Animator anim;
     private Vector3 seaTarget;
     private Vector3 beachTarget;
     private Vector3 findEffiTarget;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         fun_scoreToUploadPerTime = 10;
         life_scoreToUploadPerTime = 20;
         lifeSlider.maxValue = maxLifeValue;
-        anim = lifeSlider.GetComponent<Animator>();
+        //anim = lifeSlider.GetComponent<Animator>();
     }
 
     private void Update()
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     private void DownloadScore()
     {
         lifeSlider.value -= scoreToDownloadPerTime;
-        anim.SetBool("isValueChanged", true);
+        //anim.SetBool("isValueChanged", true);
         Debug.Log("Download Score");
     }
 
