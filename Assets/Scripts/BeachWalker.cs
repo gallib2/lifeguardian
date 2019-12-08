@@ -22,6 +22,8 @@ public class BeachWalker : MonoBehaviour
 
     private TimerHelper timer;
     private bool isArriveClickPosition;
+    bool isItemClicked;
+
 
     /// <summary>
     /// /Start with params
@@ -147,6 +149,7 @@ public class BeachWalker : MonoBehaviour
             moveToBeachTarget = false;
             MoveCharacterTowards(targetOut);
             isArriveBeachTargetPosition = false;
+            isItemClicked = false;
 
             if (transform.position == targetOut.position)
             {
@@ -211,6 +214,7 @@ public class BeachWalker : MonoBehaviour
             moveToBeachTarget = false;
             MoveCharacterTowards(targetOut);
             isArriveBeachTargetPosition = false;
+            isItemClicked = false;
 
             if (transform.position == targetOut.position)
             {
@@ -295,6 +299,7 @@ public class BeachWalker : MonoBehaviour
             moveToBeachTarget = false;
             MoveCharacterTowards(targetOut);
             isArriveClickPosition = false;
+            isItemClicked = false;
 
             if (transform.position == targetOut.position)
             {
@@ -350,8 +355,9 @@ public class BeachWalker : MonoBehaviour
     private void OnMouseDown()
     {
         // todo call function that: moveOutTarget = false; stay to "speak" for few seconds and then moveout = true;
-        if(isArriveClickPosition)
+        if (isArriveClickPosition && !isItemClicked)
         {
+            isItemClicked = true;
             //SpeakWithBeachWalker();
             healthBar.OnStopDownloadHealth();
             OnBeachWalkerClicked?.Invoke();
@@ -362,18 +368,18 @@ public class BeachWalker : MonoBehaviour
                 SeaDeepWaterCharacterClicked();
             }
 
-            if(characterType == CharacterType.Sea_rider)
+            if (characterType == CharacterType.Sea_rider)
             {
                 SpeakWithBeachWalker();
                 SeaRiderClicked();
             }
 
-            if(characterType == CharacterType.beach_Ball)
+            if (characterType == CharacterType.beach_Ball)
             {
                 BeachBallClicked();
             }
 
-            if(characterType == CharacterType.beach_start_with)
+            if (characterType == CharacterType.beach_start_with)
             {
                 SpeakWithBeachWalker();
             }

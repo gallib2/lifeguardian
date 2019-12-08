@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     {
         moveToSea = true;
         beachTarget = new Vector3(11.28f, mainCamera.transform.position.y, mainCamera.transform.position.z);
-        seaTarget = new Vector3(-0.09f, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        seaTarget = new Vector3(0.06f, mainCamera.transform.position.y, mainCamera.transform.position.z);
         findEffiTarget = new Vector3(11.28f, 11.0f, mainCamera.transform.position.z);
         scoreToDownloadPerTime = 10;
         fun_scoreToUploadPerTime = 10;
