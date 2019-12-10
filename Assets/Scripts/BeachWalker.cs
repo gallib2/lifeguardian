@@ -51,6 +51,7 @@ public class BeachWalker : MonoBehaviour
     public Vector3 spriteScale;
     private bool isStandingOnSurf = true;
     private bool isAlreadySwitchSprite = false;
+    public Animator anim;
 
     // ball params
     public Transform target1;
@@ -238,12 +239,15 @@ public class BeachWalker : MonoBehaviour
     private void SwitchCharacterSprite()
     {
         isStandingOnSurf = !isStandingOnSurf;
+        anim?.SetBool("toPaddel", isStandingOnSurf);
         Sprite tempSprite = GetComponent<SpriteRenderer>().sprite;
         Vector3 tempScale = transform.localScale;
+        Debug.Log("sprite: " + sprite);
         GetComponent<SpriteRenderer>().sprite = sprite;
         transform.localScale = spriteScale;
         spriteScale = tempScale;
         sprite = tempSprite;
+
     }
 
     private void SeaDeepWaterCharacterClicked()
