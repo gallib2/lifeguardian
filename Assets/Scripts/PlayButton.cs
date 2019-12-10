@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour
 {
@@ -20,8 +21,14 @@ public class PlayButton : MonoBehaviour
         }
     }
 
-    public void OnButtonClick()
+    public void OnPlayButtonClick()
     {
-        toStartMove = true;
+        //toStartMove = true;
+        SceneManager.LoadScene((int)SceneEnumConfig.Game);
+    }
+
+    public void OnQuitClick()
+    {
+        Application.Quit();
     }
 }
