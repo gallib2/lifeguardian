@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 2467215581412993849}
   - component: {fileID: 2467215581412993848}
   - component: {fileID: 2467215581412993851}
+  - component: {fileID: 7504870355226150674}
   m_Layer: 0
   m_Name: women_tumbs_up
   m_TagString: Untagged
@@ -621,7 +622,7 @@ Transform:
   m_GameObject: {fileID: 2467215581412993844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.46, y: 0.67, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.764, z: 1}
+  m_LocalScale: {x: 0.2216644, y: 0.2216644, z: 0.2216644}
   m_Children: []
   m_Father: {fileID: 2467215580956738351}
   m_RootOrder: 1
@@ -663,7 +664,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 62919f01368a74c4c9e21aaa6be6e96f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 535ec81723d74495383aa5c6b0ae7820, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -700,6 +701,7 @@ MonoBehaviour:
   targetSecondOnWater: {fileID: 0}
   sprite: {fileID: 0}
   spriteScale: {x: 0, y: 0, z: 0}
+  anim: {fileID: 0}
   target1: {fileID: 0}
   matkaHand: {fileID: 0}
 --- !u!61 &2467215581412993848
@@ -715,18 +717,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.16631591, y: 0.07559776}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.03, y: 1.93}
+    oldSize: {x: 2.73, y: 7.71}
     newSize: {x: 1.03, y: 1.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.03, y: 1.93}
+  m_Size: {x: 3.358424, y: 7.9476223}
   m_EdgeRadius: 0
 --- !u!82 &2467215581412993851
 AudioSource:
@@ -824,3 +826,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &7504870355226150674
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467215581412993844}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d26b7d4a828b460482e9543d7500a41, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

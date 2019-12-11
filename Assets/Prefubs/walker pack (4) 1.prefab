@@ -334,8 +334,8 @@ MonoBehaviour:
   characterType: 2
   maxHealth: 10
   audioClips:
-  - {fileID: 8300000, guid: a391926a0af374bdc86c154bce96abd4, type: 3}
-  - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
+  - {fileID: 8300000, guid: f1058a605689642699aebb4f7986a931, type: 3}
+  - {fileID: 8300000, guid: a3d34870efd4b4445baf5185a6c2a916, type: 3}
   speed: 0.5
   healthBar: {fileID: 3571798011078223664}
   targetOnBeach: {fileID: 3571798010206382690}

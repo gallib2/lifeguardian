@@ -690,9 +690,9 @@ MonoBehaviour:
   characterType: 1
   maxHealth: 10
   audioClips:
-  - {fileID: 8300000, guid: a391926a0af374bdc86c154bce96abd4, type: 3}
+  - {fileID: 8300000, guid: 3858ef6decb0a4e1fae2abceb5fe8223, type: 3}
+  - {fileID: 8300000, guid: 35cf6bc5e8bc049fa83ed179670724c7, type: 3}
   - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
-  audioClipFaild: {fileID: 8300000, guid: cb3fd1ea6573c4e908b1e3648d02658f, type: 3}
   speed: 0.3
   healthBar: {fileID: 1935452665593021991}
   targetOnBeach: {fileID: 1935452665752642575}
@@ -701,6 +701,7 @@ MonoBehaviour:
   targetSecondOnWater: {fileID: 7371940284660381025}
   sprite: {fileID: 0}
   spriteScale: {x: 0, y: 0, z: 0}
+  anim: {fileID: 0}
   target1: {fileID: 0}
   matkaHand: {fileID: 0}
 --- !u!61 &1935452666050551189
@@ -741,7 +742,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

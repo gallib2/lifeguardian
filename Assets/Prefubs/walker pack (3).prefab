@@ -591,8 +591,10 @@ MonoBehaviour:
   characterType: 0
   maxHealth: 10
   audioClips:
-  - {fileID: 8300000, guid: a391926a0af374bdc86c154bce96abd4, type: 3}
-  - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
+  - {fileID: 8300000, guid: ea6a9308c38294ac1b0dacc02c5dc7e2, type: 3}
+  - {fileID: 8300000, guid: b3d3144419aa64e4e810d6a68fb00e41, type: 3}
+  - {fileID: 8300000, guid: 708db01ad5def40778bf30232daaee06, type: 3}
+  - {fileID: 8300000, guid: de39230e7858a43c7a724722be044f40, type: 3}
   speed: 1
   healthBar: {fileID: 3178599683654406769}
   targetOnBeach: {fileID: 3178599683780407385}
@@ -601,6 +603,9 @@ MonoBehaviour:
   targetSecondOnWater: {fileID: 5804815301013954871}
   sprite: {fileID: 0}
   spriteScale: {x: 0, y: 0, z: 0}
+  anim: {fileID: 0}
+  target1: {fileID: 0}
+  matkaHand: {fileID: 0}
 --- !u!61 &3178599684010936771
 BoxCollider2D:
   m_ObjectHideFlags: 0

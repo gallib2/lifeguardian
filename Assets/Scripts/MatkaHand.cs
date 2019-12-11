@@ -9,12 +9,15 @@ public class MatkaHand : MonoBehaviour
     public Transform handMatkaTarget2;
     public bool toMoveOutHandMatka;
 
+    private AudioSource audioSource;
+    public List<AudioClip> audioClips;
+
     public bool IsArrivedPosition { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,6 +30,7 @@ public class MatkaHand : MonoBehaviour
             if (IsArrivedPosition)
             {
                 toMoveOutHandMatka = false;
+                Speak();
             }
         }
         else
@@ -38,6 +42,13 @@ public class MatkaHand : MonoBehaviour
             //    IsArrivedPosition = false;
             //}
         }
+    }
+
+    private void Speak()
+    {
+        int index = UnityEngine.Random.Range(0, audioClips.Count);
+
+        audioSource.PlayOneShot(audioClips[index]);
     }
 
     public void StartMoveHand()
