@@ -16,7 +16,11 @@ public class GameManager : MonoBehaviour
     public int speed = 3;
     public int maxLifeValue = 100;
     public int maxFunValue = 100;
+    public AudioClip audioClipWarning;
+    public AudioClip audioClipGood;
 
+    private AudioSource audioSource;
+    private bool toPlayWarningSound;
     //private Animator anim;
     private Vector3 seaTarget;
     private Vector3 beachTarget;
@@ -58,11 +62,24 @@ public class GameManager : MonoBehaviour
         fun_scoreToUploadPerTime = 10;
         life_scoreToUploadPerTime = 20;
         lifeSlider.maxValue = maxLifeValue;
+        audioSource = GetComponent<AudioSource>();
         //anim = lifeSlider.GetComponent<Animator>();
+        toPlayWarningSound = true;
     }
 
     private void Update()
     {
+        if(toPlayWarningSound && lifeSlider.value <= scoreToDownloadPerTime)
+        {
+            audioSource.PlayOneShot(audioClipWarning);
+            toPlayWarningSound = false;
+        }
+
+        if(lifeSlider.value > scoreToDownloadPerTime)
+        {
+            toPlayWarningSound = true;
+        }
+
         if(lifeSlider.value <= 0)
         {
             Debug.Log("GAME OVER! ");
@@ -74,6 +91,7 @@ public class GameManager : MonoBehaviour
         {
             lifeSlider.value += life_scoreToUploadPerTime;
             funSlider.value = 0;
+            audioSource.PlayOneShot(audioClipGood);
         }
 
         if(shouldMoveCamera)
@@ -100,7 +118,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void LostKidClicked()

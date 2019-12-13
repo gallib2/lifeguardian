@@ -16,6 +16,7 @@ public class BeachWalker : MonoBehaviour
 
     private AudioSource audioSource;
     public List<AudioClip> audioClips;
+    public AudioClip audioClipBloopSound;
 
     public float speed = 0.3f;
     public HealthBar healthBar;

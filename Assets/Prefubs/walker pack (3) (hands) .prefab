@@ -924,6 +924,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b3d3144419aa64e4e810d6a68fb00e41, type: 3}
   - {fileID: 8300000, guid: 708db01ad5def40778bf30232daaee06, type: 3}
   - {fileID: 8300000, guid: de39230e7858a43c7a724722be044f40, type: 3}
+  audioClipBloopSound: {fileID: 8300000, guid: e157230a93f3042c392771baeb2980c0, type: 3}
   speed: 1
   healthBar: {fileID: 7258393690089040578}
   targetOnBeach: {fileID: 7258393690198247658}

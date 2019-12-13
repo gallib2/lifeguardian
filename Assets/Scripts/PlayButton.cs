@@ -5,30 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour
 {
-    public Transform target;
-    public float speed;
-    bool toStartMove;
+    private AudioSource audioSource;
+    public List<AudioClip> audioClips;
+    int lastPlayedIndex;
 
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if(toStartMove)
-        {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, target.position, step);
-            Debug.Log("transform.position: " + transform.position);
-        }
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void OnPlayButtonClick()
     {
-        //toStartMove = true;
+        //Speak();
         SceneManager.LoadScene((int)SceneEnumConfig.Game);
     }
 
     public void OnQuitClick()
     {
         Application.Quit();
+    }
+
+    private void Speak()
+    {
+        int index = UnityEngine.Random.Range(0, audioClips.Count);
+        if (index == lastPlayedIndex)
+        {
+            index = (index + 1) % audioClips.Count;
+        }
+        audioSource.PlayOneShot(audioClips[index]);
+        lastPlayedIndex = index;
     }
 }

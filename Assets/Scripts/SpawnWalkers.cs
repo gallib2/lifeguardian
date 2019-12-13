@@ -10,7 +10,9 @@ public class SpawnWalkers : MonoBehaviour
     public GameObject currentWalker;
     public int timeBetweenSpawn = 10;
     public int MAX_WalkersOnAction = 1;
+    public AudioClip audioClipBloopSound;
 
+    private AudioSource audioSource;
     private TimerHelper timer;
     private int numOfWalkersOnAction;
 
@@ -34,6 +36,7 @@ public class SpawnWalkers : MonoBehaviour
         //MAX_WalkersOnAction = 1;
         numOfWalkersOnAction++;
         //timeBetweenSpawn = 10;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -69,6 +72,10 @@ public class SpawnWalkers : MonoBehaviour
         if (characterType == CharacterType.Sea_deep_water || characterType == CharacterType.Sea_shallow_water || characterType == CharacterType.Sea_rider)
         {
             CreateCharacter();
+            if(audioClipBloopSound)
+            {
+               audioSource?.PlayOneShot(audioClipBloopSound);
+            }
         }
     }
 

@@ -692,7 +692,6 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 3858ef6decb0a4e1fae2abceb5fe8223, type: 3}
   - {fileID: 8300000, guid: 35cf6bc5e8bc049fa83ed179670724c7, type: 3}
-  - {fileID: 8300000, guid: 46d4d827c7be549fc99d0cd9bec501a6, type: 3}
   speed: 0.3
   healthBar: {fileID: 1935452665593021991}
   targetOnBeach: {fileID: 1935452665752642575}
