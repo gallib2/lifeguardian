@@ -457,7 +457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2467215581016123250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.83, y: 10.41, z: 0}
+  m_LocalPosition: {x: 4, y: 9.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2467215580956738351}
@@ -620,13 +620,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2467215581412993844}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.3169523, z: -0, w: 0.94844157}
   m_LocalPosition: {x: -0.46, y: 0.67, z: 0}
   m_LocalScale: {x: 0.2216644, y: 0.2216644, z: 0.2216644}
   m_Children: []
   m_Father: {fileID: 2467215580956738351}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 36.957, z: 0}
 --- !u!212 &2467215581412993847
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -693,6 +693,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 212b1770607ea4dfaa5298f36cbef679, type: 3}
   - {fileID: 8300000, guid: feb7a3880eaed4babbb38a9e0a0bf55d, type: 3}
   - {fileID: 8300000, guid: 86863c9fc3de9498890d42d42f5faea8, type: 3}
+  audioClipBloopSound: {fileID: 0}
   speed: 0.5
   healthBar: {fileID: 2467215580997480586}
   targetOnBeach: {fileID: 2467215581106688674}

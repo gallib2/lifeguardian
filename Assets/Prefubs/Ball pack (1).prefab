@@ -500,7 +500,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -529,6 +529,7 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 2c973c35677e14f0898693f6e65e4591, type: 3}
   - {fileID: 8300000, guid: 3e96f75f109c349e4a329b41e328beec, type: 3}
+  audioClipBloopSound: {fileID: 0}
   speed: 1
   healthBar: {fileID: 2855511474153404932}
   targetOnBeach: {fileID: 2855511474027272236}
@@ -854,8 +855,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4796429040377588071}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.41, y: 1.88, z: 0}
-  m_LocalScale: {x: 0.351348, y: 0.351348, z: 0.351348}
+  m_LocalPosition: {x: -0.7608, y: 1.88, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 4796429041455810215}
   m_RootOrder: 0

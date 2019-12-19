@@ -72,11 +72,7 @@ public class BeachWalker : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         currentTarget = targetOnBeach;
         spriteScale = transform.localScale; // new Vector3(0.3f, 0.3f, 0.3f);
-
-        //if(characterType == CharacterType.beach_Ball)
-        //{
-        //    audioSource.Play();
-        //}
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -288,6 +284,7 @@ public class BeachWalker : MonoBehaviour
             isArriveClickPosition = transform.position == targetOnBeach.position;
             if (isArriveClickPosition)
             {
+                anim?.SetBool("toStopWalk", true);
                 if (toResetTimer)
                 {
                     healthBar.OnStartDownloadHealth();
@@ -305,7 +302,7 @@ public class BeachWalker : MonoBehaviour
             MoveCharacterTowards(targetOut);
             isArriveClickPosition = false;
             isItemClicked = false;
-
+            anim?.SetBool("toWlakAway", true);
             if (transform.position == targetOut.position)
             {
                 OnBeachWalkerOut?.Invoke();
