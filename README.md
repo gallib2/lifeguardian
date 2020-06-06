@@ -14,7 +14,8 @@ From time to time you can switch to the fun zone - help with the Matkot, interac
 3. Have fun :)
 
 <a href="https://www.youtube.com/watch?v=1MuFuygQ3w4&feature=youtu.be" target="_blank">
-<img border="0" src="lifeguard.gif" width="250" height="400">
+  watch on YouTube <br/>
+<img border="0" src="lifeguard.gif" width="250" height="400"/>
 </a>
 
 ### Credits
