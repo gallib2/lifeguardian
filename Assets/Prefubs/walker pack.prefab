@@ -686,14 +686,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a54693c987e74718b3c437a99531967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterType: 3
+  maxHealth: 5
   audioClips:
   - {fileID: 8300000, guid: 212b1770607ea4dfaa5298f36cbef679, type: 3}
   - {fileID: 8300000, guid: feb7a3880eaed4babbb38a9e0a0bf55d, type: 3}
+  speed: 0.5
+  healthBar: {fileID: 6118152063388487198}
   targetOnBeach: {fileID: 6118152063548238902}
   targetOut: {fileID: 6118152063445080545}
-  speed: 0.5
   timeToStayOnBeachTarget: 5
-  healthBar: {fileID: 6118152063388487198}
+  targetSecondOnWater: {fileID: 0}
 --- !u!61 &6118152063854564780
 BoxCollider2D:
   m_ObjectHideFlags: 0
