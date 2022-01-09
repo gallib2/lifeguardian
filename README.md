@@ -19,4 +19,4 @@ From time to time you can switch to the fun zone - help with the Matkot, interac
 </a>
 
 ### Credits
-**Graphics:** [Karin Bahari](https://karinb.me)
+**Graphics:** [Karin Bahari](https://karinb.net)
